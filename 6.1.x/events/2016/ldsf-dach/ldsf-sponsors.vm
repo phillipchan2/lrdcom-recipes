@@ -1,118 +1,116 @@
-<div id="sponsors" class="sponsor-title">
-	<h2 class="lighter-font">
-		Sponsoren</h2>
-</div>
 <style type="text/css">
-.sponsor-title {
-text-align: center;
-}</style>
-
-
-<style>
-.taglib-header {
-    display: none;
-}
-
-.diamond,
-.main,
-.platinum {
-    text-align: left;
-}
-
-.diamond img, .platinum img {
-    max-width: 170px;
-    padding: 15px 0;
-}
-
-.download-heading-text {
-    color: #333;
-    font-size: 2em;
-    font-weight: normal;
-	margin-bottom: 0;
-	text-align: center;
-}
-
-.heading-container {
-	display: table-cell;
-	text-align: left;
-	width: 210px;
-	vertical-align: top;
-}
-
-.items-container {
-    display: table-cell;
-    text-align: left;
-    padding-left: 40px;
-    vertical-align: middle;
-}
-
-.main img {
-	max-width: 174px;
-	padding: 15px 0;
-}
-
-.sponsor-image-container {
-	max-width: 181px;
-	display: inline-block;
-    padding-right: 25px;
-	text-align: left;
-}
-
-.link-sponsor-symp {
-	display: block;
-}
-
-.sponsor-type {
-	display: table;
-}
-
-.sponsor-heading {
-	color: #414142;
-	font-size: 1.5em;
-	font-weight: normal;
-	text-align: left;
-}
-
-.sponsors-wrapper {
-    display: table;
-    margin: 50px auto 150px;
-}
-
-@media all and (min-width: 720px) {
-	.sponsor-heading {
-		font-size: 2em;
-		margin: .5em 0;
-	}
-}
-
-@media all and (max-width: 720px) {
-	.heading-container {
-		display: block;
-		margin: auto;
-	}
-	
-	.items-container {
-		display: block;
-        padding-left: 0px;
-        text-align: center;
-	}
-
-	.sponsor-heading {
-		display: block;
-		font-size: 2em;
-		font-weight: lighter;
+	.sponsor-title {
 		text-align: center;
 	}
 
-	.sponsor-image-container img {
-		max-width: 174px;
+	.taglib-header {
+		display: none;
 	}
-    
-    .sponsor-type {
-        margin: auto;
-    }
-}
+
+	.diamond, .main, .platinum {
+		text-align: left;
+	}
+
+	.diamond img, .platinum img {
+		max-width: 170px;
+		padding: 15px 0;
+	}
+
+	.download-heading-text {
+		color: #333;
+		font-size: 2em;
+		font-weight: normal;
+		margin-bottom: 0;
+		text-align: center;
+	}
+
+	.heading-container {
+		display: table-cell;
+		text-align: left;
+		vertical-align: top;
+		width: 210px;
+	}
+
+	.items-container {
+		display: table-cell;
+		padding-left: 40px;
+		text-align: left;
+		vertical-align: middle;
+	}
+
+	.main img {
+		max-width: 174px;
+		padding: 15px 0;
+	}
+
+	.sponsor-image-container {
+		display: inline-block;
+		max-width: 181px;
+		padding-right: 25px;
+		text-align: left;
+	}
+
+	.link-sponsor-symp {
+		display: block;
+	}
+
+	.sponsor-type {
+		display: table;
+	}
+
+	.sponsor-heading {
+		color: #414142;
+		font-size: 1.5em;
+		font-weight: normal;
+		text-align: left;
+	}
+
+	.sponsors-wrapper {
+		display: table;
+		margin: 50px auto 150px;
+	}
+
+	@media all and (min-width: 720px) {
+		.sponsor-heading {
+			font-size: 2em;
+			margin: 0.5em 0;
+		}
+	}
+
+	@media all and (max-width: 720px) {
+		.heading-container {
+			display: block;
+			margin: auto;
+		}
+
+		.items-container {
+			display: block;
+			padding-left: 0;
+			text-align: center;
+		}
+
+		.sponsor-heading {
+			display: block;
+			font-size: 2em;
+			font-weight: lighter;
+			text-align: center;
+		}
+
+		.sponsor-image-container img {
+			max-width: 174px;
+		}
+
+		.sponsor-type {
+			margin: auto;
+		}
+	}
 </style>
+
+<div class="sponsor-title" id="sponsors">
+	<h2 class="lighter-font">
+		Sponsoren
+	</h2>
+</div>
 
 ## Content Template
 #macro (content_template12 $heading $array)
@@ -132,8 +130,8 @@ text-align: center;
 					#set ($image_url = $record.get("image_url"))
 					#set ($link = $record.get("link"))
 
-					<a href="$link" target="blank" class="link-sponsor-symp">
-						<img src="$image_url" alt="$name"/ class="sponsor-image">
+					<a class="link-sponsor-symp" href="$link" target="blank">
+						<img alt="$name" class="sponsor-image" src="$image_url">
 					</a>
 				</div>
 			#end

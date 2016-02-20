@@ -5,8 +5,8 @@
 
 .app-download a {
     display: block;
-    margin: 10px 0;
     height: 44px;
+    margin: 10px 0;
     width: 130px;
 }
 
@@ -39,7 +39,7 @@ a.android {
 
 .countdown h3 {
     font-size: 14px;
-    opacity: .8;
+    opacity: 0.8;
 }
 
 .countdown-timer {
@@ -52,14 +52,14 @@ a.android {
     max-width: 260px;
 }
 
-.countdown-values .countdown-units{
+.countdown-values .countdown-units {
     display: inline-block;
     font-size: 16px;
     width: 23.5%;
 }
 
 .dark-red-font {
-    color: #e6602c;
+    color: #E6602C;
 }
 
 .footer {
@@ -120,8 +120,8 @@ a.android {
 }
 
 .company-footer .liferay-logo {
-    margin: 0 auto;
     display: inline-block;
+    margin: 0 auto;
     vertical-align: middle;
 }
 
@@ -155,13 +155,12 @@ a.android {
     padding: 7px 10px 7px 5px;
 }
 
-
 .social li a:hover {
-    background-color: #0067aa; 
+    background-color: #0067AA;
 }
 
 .social li a:before {
-    background: url('/documents/47511614/49384334/social-sprite.svg/4225309a-8463-4dbb-b71c-38f7f6b40ddd') no-repeat;
+    background: url(/documents/47511614/49384334/social-sprite.svg/4225309a-8463-4dbb-b71c-38f7f6b40ddd) no-repeat;
     content: "";
     display: inline-block;
     height: 16px;
@@ -215,7 +214,7 @@ a.android {
     }
 
     .footer .countdown {
-    	width:  33%;
+        width: 33%;
 	}
 }
 
@@ -268,7 +267,6 @@ a.android {
     }
 
     .footer .page-nav.responsive-only {
-
         width: 43% !important;
     }
 
@@ -308,7 +306,7 @@ a.android {
                     <a $rightItem.attribute.data #if ($rightItem.className.data != "" && $rightItem.className.data)class="$rightItem.className.data"#end href="$rightItem.href.data">$rightItem.data</a></li>
                 #if ($rightItem.separator.data == true && $rightItem.separator)
                     <li class="separator">&nbsp;</li>
-            	#end
+                #end
             #end
         #end
 	</ul>
@@ -344,25 +342,25 @@ a.android {
 			#end
 		</div>
 		<a class="btn" href="$register_button_text.register_url.data" id="earlyBirdButton" target="_blank">$register_button_text.data</a></div>
-	<div class="footer-responsive-top-container content-column responsive-only">
+    <div class="content-column footer-responsive-top-container responsive-only">
 		<ul class="aui-w12 content-column responsive-only scroll-nav">
-	        #foreach($leftItem in $left_section_item.siblings)
-	            <li>
-	                <a class="animate-scroll" href="$leftItem.href.data">$leftItem.data</a></li>
-	            <li>
-	        #end
+            #foreach($leftItem in $left_section_item.siblings)
+                <li>
+                    <a class="animate-scroll" href="$leftItem.href.data">$leftItem.data</a></li>
+                <li>
+            #end
 		</ul>
 		<ul class="aui-w20 content-column responsive-only page-nav">
-	        #if ($right_section_item.data != "" && $right_section_item.data)
-	            #foreach($rightItem in $right_section_item.siblings)
-	                <li>
-	                    <a $rightItem.attribute.data #if ($rightItem.className.data != "" && $rightItem.className.data)class="$rightItem.className.data"#end href="$rightItem.href.data">$rightItem.data</a></li>
-	                #if ($rightItem.separator.data == true && $rightItem.separator)
-	                    <li class="separator">&nbsp;</li>
-	            	#end
-	            #end
-	        #end
-		</ul>
+            #if ($right_section_item.data != "" && $right_section_item.data)
+                #foreach($rightItem in $right_section_item.siblings)
+                    <li>
+                        <a $rightItem.attribute.data #if ($rightItem.className.data != "" && $rightItem.className.data)class="$rightItem.className.data"#end href="$rightItem.href.data">$rightItem.data</a></li>
+                            #if ($rightItem.separator.data == true && $rightItem.separator)
+                        <li class="separator">&nbsp;</li>
+                    #end
+                #end
+            #end
+        </ul>
 	</div>
 	<div class="aui-w15 content-column app-download">
 		<h3 class="get-app lighter-font">
@@ -376,15 +374,20 @@ a.android {
 	<div class="social content-column">
 		<ul class="content-column lighter-font">
 			<li class="social-item facebook">
-				<a href="//www.facebook.com/pages/Liferay/45119213107" target="_blank">Facebook</a></li>
+				<a href="//www.facebook.com/pages/Liferay/45119213107" target="_blank">Facebook</a>
+            </li>
 			<li class="social-item twitter">
-				<a href="//www.twitter.com/liferay" target="_blank">Twitter</a></li>
+				<a href="//www.twitter.com/liferay" target="_blank">Twitter</a>
+            </li>
 			<li class="social-item linkedin">
-				<a href="//www.linkedin.com/company/83609?trk=NUS_CMPY_TWIT" target="_blank">Linkedin</a></li>
+				<a href="//www.linkedin.com/company/83609?trk=NUS_CMPY_TWIT" target="_blank">Linkedin</a>
+            </li>
 			<li class="social-item youtube">
-				<a href="//www.youtube.com/user/liferayinc" target="_blank">Youtube</a></li>
+				<a href="//www.youtube.com/user/liferayinc" target="_blank">Youtube</a>
+            </li>
 			<li class="social-item blog">
-				<a href="/community/blogs" target="_blank">LR Blogs</a></li>
+                <a href="/community/blogs" target="_blank">LR Blogs</a>
+            </li>
 		</ul>
 	</div>
 </div>
@@ -449,7 +452,7 @@ AUI().ready(
         var day = parseInt($registration_time.day.data);
         var hour = parseInt($registration_time.hour.data);
 
-        //months start from 0 (Jan) to 11(Dec)
+        // months start from 0 (Jan) to 11(Dec)
         CountDownTimer(year, month, day, hour, 0, 0, '.countdown-timer');
     }
 );

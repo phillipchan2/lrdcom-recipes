@@ -27,7 +27,7 @@
 				#end
 
 				<div id="embedded-targeted-article-$namespace">
-					<runtime-portlet name="56" instance="targeted_$namespace" queryString=""/>
+					<runtime-portlet instance="targeted_$namespace" name="56" queryString=""/>
 				</div>
 
 				#break
@@ -112,7 +112,6 @@
 									#if ($element.element_css_class.data != "")
 										#set ($element_css_class = $element_css_class + " $element.element_css_class.data" )
 									#end
-
 
 										#if ($element.element_type.data == "button")
 											<a class="btn $element_css_class" id="button-${reserved-article-id.data}${section_count}${block_count}$velocityCount" $element.data>$element.element_content.data</a>

@@ -1,253 +1,254 @@
 <style>
-.aui-overlaymask-content {
-    opacity: 0.85!important;    
-}
-
-.engage-section {
-    margin: auto;
-    padding-bottom: 6em;
-    padding-top: 5em;
-}
-
-.engage-section h2.title {
-    font-size: 28px;
-    font-weight: normal;
-    line-height: 1.5em;
-    margin: 10px 0;
-}
-
-.engage-section > div {
-    display: table;
-}
-
-.engage-video, .engage-text {
-    vertical-align: middle;
-    float: left;
-    display: table-cell;
-    text-shadow: 0px 0px 30px rgba(12, 0, 5, 0.8);
-}
-
-.engage-text h3.subtitle {
-    font-size: 1.25em;
-    font-weight: normal;
-    line-height: 1.5em;
-    margin: 15px 0;
-    text-shadow: 0px 0px 30px rgba(12, 0, 5, 0.8);
-}
-
-h2.light, h3.light {
-    color: #FFF;
-}
-
-.ie8 .video-swap {
-    background: url('/documents/67510365/68734286/sprite.png/396bd465-ed95-45fd-a2c6-0d2e956700cb?t=1418251188000');
-    background-position: 393px 0px;
-    content: "";
-    cursor: pointer;
-    height: 235px;
-    margin: auto;
-    width: 393px;
-}
-
-.max-960 {
-    margin: 0 auto;
-    max-width: 960px;
-}
-
-.video-swap {
-    background: url('/documents/67510365/68001944/video-frame.svg/e2dddefc-ba3b-40a3-8c28-30d197d23d39') no-repeat;
-    cursor: pointer;
-    height: 234px;
-    margin: auto;
-    width: 393px;
-}
-
-#article-${reserved-article-id.data} {
-    background: url($background_image.data);
-    min-height: 375px;
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-#closePopUp {
-    background: url('/documents/14/43237314/x-close.png/fb100dfc-157b-43df-8ce1-5a8c8a873c3d') no-repeat;
-    cursor: pointer;
-    float: right;
-    height: 24px;
-    left: 0px;
-    position: relative;
-    top: 18px;
-    width: 24px;
-}
-
-#videoPopUp {
-    max-width: 910px;
-    position: absolute;
-    width: 85%;
-    z-index: 2000;
-}
-
-#videoPopUp .pop-up-content {
-    display: block;
-    max-width: 890px;
-    padding: 50px 35px 30px;
-}
-
-#videoPopUp .pop-up-content .speaker-company, #videoPopUp .pop-up-content .speaker-name, #videoPopUp .pop-up-content .speaker-title {
-    display: block;
-}
-
-#videoPopUp .speaker-company {
-    font-style: italic;
-}
-
-#videoPopUp .speaker-name {
-    color: #3AA0D5;
-    font-size: 1.2em;
-    margin: 5px 0;
-}
-
-#videoPopUp .speaker-title, #videoPopUp .speaker-company {
-    font-weight: normal;
-}
-
-.ie7 #videoPopUp, .ie8 #videoPopUp {
-    background: #FFF;
-}
-
-.ie8 #heading .company-title .logo {
-    background-color: #F5FAFD;
-}
-
-.ie8.show-nav #navigation {
-    background: #F5FAFD;
-}
-
-#videoPopUp:after, #videoPopUp:before {
-    border: 30px solid transparent;
-    content: "";
-    display: block;
-    margin: -30px;
-    position: absolute;
-}
-
-#videoPopUp.bottom:after {
-    border-top-color: #FFF;
-    bottom: -29px;
-    right: 50%;
-}
-
-#videoPopUp.bottom:before {
-    border-top-color: #CCC;
-    bottom: -30px;
-    right: 50%;
-}
-
-#videoPopUp.left:after {
-    border-left-color: #FFF;
-    right: -29px;
-    top: 50%;
-}
-
-#videoPopUp.left:before {
-    border-left-color: #CCC;
-    right: -30px;
-    top: 50%;
-}
-
-#videoPopUp.right:after {
-    border-right-color: #FFF;
-    left: -29px;
-    top: 50%;
-}
-
-#videoPopUp.right:before {
-    border-right-color: #CCC;
-    left: -30px;
-    top: 50%;
-}
-
-#videoPopUp.top:after {
-    border-bottom-color: #FFF;
-    right: 50%;
-    top: -29px;
-}
-
-#videoPopUp.top:before {
-    border-bottom-color: #CCC;
-    right: 50%;
-    top: -30px;
-}
-
-.pop-up-content iframe {
-    width: 100%;
-    height: 500px;
-}
-
-@media all and (min-width: 720px) {
-    #videoPopUp {
-        width: 85%;
+    .aui-overlaymask-content {
+        opacity: 0.85 !important;
     }
-}
 
-@media all and (max-width: 815px) {
-    .pop-up-content iframe {
-        height: 350px;
-    }
-}
-
-@media all and (max-width: 690px) {
-    .pop-up-content iframe {
-        height: 260px;
-    }
-}
-
-@media all and (max-width: 520px) {
-    .pop-up-content iframe {
-        height: 200px;
-    }
-}
-
-@media(max-width: 820px) {
-    .engage-section > div {
-        display: block;
+    .engage-section {
         margin: auto;
-        float: none;
+        padding-bottom: 6em;
+        padding-top: 5em;
     }
-}
 
-@media(max-width: 500px) {
-    .video-swap {
-        cursor: pointer;
-        background-size: 100% 100%;
-        height: 117px;
-        max-width: 280px;
+    .engage-section h2.title {
+        font-size: 28px;
+        font-weight: normal;
+        line-height: 1.5em;
+        margin: 10px 0;
     }
-}
+
+    .engage-section > div {
+        display: table;
+    }
+
+    .engage-video, .engage-text {
+        display: table-cell;
+        float: left;
+        text-shadow: 0 0 30px rgba(12, 0, 5, 0.8);
+        vertical-align: middle;
+    }
+
+    .engage-text h3.subtitle {
+        font-size: 1.25em;
+        font-weight: normal;
+        line-height: 1.5em;
+        margin: 15px 0;
+        text-shadow: 0 0 30px rgba(12, 0, 5, 0.8);
+    }
+
+    h2.light, h3.light {
+        color: #FFF;
+    }
+
+    .ie8 .video-swap {
+        background: url(/documents/67510365/68734286/sprite.png/396bd465-ed95-45fd-a2c6-0d2e956700cb?t=1418251188000);
+        background-position: 393px 0;
+        content: "";
+        cursor: pointer;
+        height: 235px;
+        margin: auto;
+        width: 393px;
+    }
+
+    .max-960 {
+        margin: 0 auto;
+        max-width: 960px;
+    }
+
+    .video-swap {
+        background: url(/documents/67510365/68001944/video-frame.svg/e2dddefc-ba3b-40a3-8c28-30d197d23d39) no-repeat;
+        cursor: pointer;
+        height: 234px;
+        margin: auto;
+        width: 393px;
+    }
+
+    #article-${reserved-article-id.data} {
+        background-attachment: fixed;
+        background-position: top center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background: url($background_image.data);
+        min-height: 375px;
+    }
+
+    #closePopUp {
+        background: url(/documents/14/43237314/x-close.png/fb100dfc-157b-43df-8ce1-5a8c8a873c3d) no-repeat;
+        cursor: pointer;
+        float: right;
+        height: 24px;
+        left: 0;
+        position: relative;
+        top: 18px;
+        width: 24px;
+    }
+
+    #videoPopUp {
+        max-width: 910px;
+        position: absolute;
+        width: 85%;
+        z-index: 2000;
+    }
+
+    #videoPopUp .pop-up-content {
+        display: block;
+        max-width: 890px;
+        padding: 50px 35px 30px;
+    }
+
+    #videoPopUp .pop-up-content .speaker-company, #videoPopUp .pop-up-content .speaker-name, #videoPopUp .pop-up-content .speaker-title {
+        display: block;
+    }
+
+    #videoPopUp .speaker-company {
+        font-style: italic;
+    }
+
+    #videoPopUp .speaker-name {
+        color: #3AA0D5;
+        font-size: 1.2em;
+        margin: 5px 0;
+    }
+
+    #videoPopUp .speaker-title, #videoPopUp .speaker-company {
+        font-weight: normal;
+    }
+
+    .ie7 #videoPopUp, .ie8 #videoPopUp {
+        background: #FFF;
+    }
+
+    .ie8 #heading .company-title .logo {
+        background-color: #F5FAFD;
+    }
+
+    .ie8.show-nav #navigation {
+        background: #F5FAFD;
+    }
+
+    #videoPopUp:after, #videoPopUp:before {
+        border: 30px solid transparent;
+        content: "";
+        display: block;
+        margin: -30px;
+        position: absolute;
+    }
+
+    #videoPopUp.bottom:after {
+        border-top-color: #FFF;
+        bottom: -29px;
+        right: 50%;
+    }
+
+    #videoPopUp.bottom:before {
+        border-top-color: #CCC;
+        bottom: -30px;
+        right: 50%;
+    }
+
+    #videoPopUp.left:after {
+        border-left-color: #FFF;
+        right: -29px;
+        top: 50%;
+    }
+
+    #videoPopUp.left:before {
+        border-left-color: #CCC;
+        right: -30px;
+        top: 50%;
+    }
+
+    #videoPopUp.right:after {
+        border-right-color: #FFF;
+        left: -29px;
+        top: 50%;
+    }
+
+    #videoPopUp.right:before {
+        border-right-color: #CCC;
+        left: -30px;
+        top: 50%;
+    }
+
+    #videoPopUp.top:after {
+        border-bottom-color: #FFF;
+        right: 50%;
+        top: -29px;
+    }
+
+    #videoPopUp.top:before {
+        border-bottom-color: #CCC;
+        right: 50%;
+        top: -30px;
+    }
+
+    .pop-up-content iframe {
+        height: 500px;
+        width: 100%;
+    }
+
+    @media all and (min-width: 720px) {
+        #videoPopUp {
+            width: 85%;
+        }
+    }
+
+    @media all and (max-width: 815px) {
+        .pop-up-content iframe {
+            height: 350px;
+        }
+    }
+
+    @media all and (max-width: 690px) {
+        .pop-up-content iframe {
+            height: 260px;
+        }
+    }
+
+    @media all and (max-width: 520px) {
+        .pop-up-content iframe {
+            height: 200px;
+        }
+    }
+
+    @media(max-width: 820px) {
+        .engage-section > div {
+            display: block;
+            float: none;
+            margin: auto;
+        }
+    }
+
+    @media(max-width: 500px) {
+        .video-swap {
+            background-size: 100% 100%;
+            cursor: pointer;
+            height: 117px;
+            max-width: 280px;
+        }
+    }
 </style>
 
 <div id="$sectionid.data">
-<div id="article-${reserved-article-id.data}">
-    <div class="lego-article-content max-960" id="aboutStartNav">
-        <div class="aui-helper-clearfix lego-section section-1 engage-section">
-            <div class="aui-w60 block-1 content-column lego-block engage-video">
-                <div class="content-column-content left-column">
-                    <div class="lego-element video-swap video-wrapper" data-embed="$video_id.data">
+    <div id="article-${reserved-article-id.data}">
+        <div class="lego-article-content max-960" id="aboutStartNav">
+            <div class="aui-helper-clearfix engage-section lego-section section-1">
+                <div class="aui-w60 block-1 content-column lego-block engage-video">
+                    <div class="content-column-content left-column">
+                        <div class="lego-element video-swap video-wrapper" data-embed="$video_id.data">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="aui-w40 block-2 content-column lego-block engage-text">
-                <div class="content-column-content right-column" >
-                    <h2 class="lego-element title light"> $header.data</h2>
-                    <h3 class="lego-element subtitle light"> $paragraph.data</h3>
+                <div class="aui-w40 block-2 content-column lego-block engage-text">
+                    <div class="content-column-content right-column" >
+                        <h2 class="lego-element title light"> $header.data</h2>
+                        <h3 class="lego-element subtitle light"> $paragraph.data</h3>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 <script>
     AUI().ready(
         'aui-overlay-mask',
@@ -261,7 +262,7 @@ h2.light, h3.light {
                 A.one('#wrapper').append('<div class="aui-helper-hidden" id="videoPopUp" data-overlay="true"><div id="closePopUp" class="close-section"></div><div class="pop-up-content"></div></div>');
 
                 videoPopUp = A.one('#videoPopUp');
-            };
+            }
 
             var centerOnPage = function(node) {
                 var currentScrollPos = WIN.get('docScrollY');
@@ -277,8 +278,8 @@ h2.light, h3.light {
                 var nodeHeight = node.get('clientHeight');
                 var nodeWidth = node.get('clientWidth');
 
-                xCenter = (contentWidth / 2) - (nodeWidth / 2);
-                yCenter = ((winHeight / 2) - (nodeHeight / 2)) + currentScrollPos;
+                var xCenter = (contentWidth / 2) - (nodeWidth / 2);
+                var yCenter = ((winHeight / 2) - (nodeHeight / 2)) + currentScrollPos;
 
                 node.setStyle('left', 'auto');
                 node.setStyle('right', xCenter);
@@ -293,7 +294,7 @@ h2.light, h3.light {
                 var targetNode = A.one('#' + node.getAttribute('data-target-node-id'));
 
                 if (!targetNode) {
-                    return
+                    return;
                 }
 
                 var targetNodeCenterX = targetNode.getX() + (targetNode.get('clientWidth') / 2);
@@ -325,13 +326,16 @@ h2.light, h3.light {
                 if (popUpDirection == 'bottom') {
                     nodeClass = 'bottom';
                     nodeTop = targetNodeCenterY - nodeHeight - popUpOffset;
-                } else if (popUpDirection == 'left') {
+                }
+                else if (popUpDirection == 'left') {
                     nodeClass = 'left';
                     nodeLeft = targetNodeCenterX - nodeWidth - popUpOffset;
-                } else if (popUpDirection == 'right') {
+                }
+                else if (popUpDirection == 'right') {
                     nodeClass = 'right';
                     nodeLeft = targetNodeCenterX + popUpOffset;
-                } else if (popUpDirection == 'top') {
+                }
+                else if (popUpDirection == 'top') {
                     nodeClass = 'top';
                     nodeTop = targetNodeCenterY + popUpOffset;
                 }
@@ -396,7 +400,7 @@ h2.light, h3.light {
                         videoPopUp.addClass('aui-helper-hidden');
 
                         popUpContent.detach('clickoutside');
-                        popUpContent.setContent("");
+                        popUpContent.setContent('');
                     }
                 );
             };
@@ -413,11 +417,11 @@ h2.light, h3.light {
                             }
                         );
                     }
-                }
+                };
 
                 var init = function() {
                     if (A.one('.aui-overlaymask')) {
-                        return
+                        return;
                     }
 
                     var overlay = new A.OverlayMask().render();
@@ -426,25 +430,26 @@ h2.light, h3.light {
                     overlay.show();
 
                     bindUI();
-                }
+                };
 
                 return init();
-            }
+            };
 
             var positionPopUp = function(node) {
                 if (node.hasClass('aui-helper-hidden')) {
-                    return
+                    return;
                 }
 
                 var popUpCentered = true;
 
-                if ((node.getAttribute('data-pop-up-position') == "target") && (WIN.get('innerWidth') > 720)) {
+                if ((node.getAttribute('data-pop-up-position') == 'target') && (WIN.get('innerWidth') > 720)) {
                     popUpCentered = false;
                 }
 
                 if (popUpCentered) {
                     centerOnPage(node);
-                } else {
+                }
+                else {
                     centerOnTarget(node);
                 }
             };

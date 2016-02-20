@@ -1,8 +1,9 @@
 <style type="text/css">
-.blue-text {
-    color: #153f6d;
-}
-.expert{
+    .blue-text {
+        color: #153F6D;
+    }
+
+    .expert {
         cursor: pointer;
         display: inline-block;
         padding: 0 5px 7.5px;
@@ -10,9 +11,9 @@
     }
 
     .expert .image-container img {
-        opacity: .3;
         max-width: 160px;
-        transition: opacity .3s ease-in-out;
+        opacity: 0.3;
+        transition: opacity 0.3s ease-in-out;
     }
 
     .expert .image-container:hover img, .expert .image-container.active img {
@@ -59,29 +60,29 @@
     }
 
     .collapse {
-    	max-height: 0;
-        overflow:hidden;
-        position:relative;
-        -webkit-transition-timing-function:ease;
-        -o-transition-timing-function:ease;
-        transition-timing-function:ease;
-        -webkit-transition-duration:.8s;
-        -o-transition-duration:.8s;
-        transition-duration:.8s;
-        -webkit-transition-property:max-height,visibility;
-        -o-transition-property:max-height,visibility;
-        transition-property:max-height,visibility;
+        -o-transition-duration: 0.8s;
+        -o-transition-property: max-height, visibility;
+        -o-transition-timing-function: ease;
+        -webkit-transition-duration: 0.8s;
+        -webkit-transition-property: max-height, visibility;
+        -webkit-transition-timing-function: ease;
+        max-height: 0;
+        overflow: hidden;
+        position: relative;
+        transition-duration: 0.8s;
+        transition-property: max-height, visibility;
+        transition-timing-function: ease;
         visibility: hidden;
     }
 
     .collapse.in {
-    	max-height: 999px;
+        max-height: 999px;
         visibility: visible;
     }
 
     .info-display {
         border: 1px solid grey;
-        margin: 0px 5px 10px;
+        margin: 0 5px 10px;
         max-width: 675px;
         width: 100%;
     }
@@ -99,57 +100,57 @@
         width: 69%;
     }
 
-@media(max-width: 1000px) {
-    .info-display {
-        max-width: 505px;
+    @media(max-width: 1000px) {
+        .info-display {
+            max-width: 505px;
+        }
+
+        .expert-info {
+            display: block;
+            margin: 0 10px;
+            width: 100%;
+        }
     }
 
-    .expert-info {
-        display: block;
-        margin: 0 10px;
-        width: 100%;
-    }
-}
-
-@media(max-width: 759px) {
-    .info-display {
-        max-width: 330px;
-    }
-}
-
-@media (max-width: 720px) {
-    .expert-exchange-description {
-        margin-right: 0;
-        padding:0;
+    @media(max-width: 759px) {
+        .info-display {
+            max-width: 330px;
+        }
     }
 
-    .expert-exchange-image-container {
-        margin-top: 10px;
-        text-align: center;
+    @media (max-width: 720px) {
+        .expert-exchange-description {
+            margin-right: 0;
+            padding: 0;
+        }
+
+        .expert-exchange-image-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .expert-logo {
+            display: block;
+            margin: 20px 0 20px 10px;
+        }
+
+        .expert-title {
+            margin: 0 auto;
+            max-width: 250px;
+        }
+
+        .info-display {
+            margin: 0 auto 20px;
+            max-width: 505px;
+            text-align: left;
+        }
     }
 
-    .expert-logo {
-        display: block;
-        margin: 20px 0 20px 10px;
+    @media (max-width: 535px) {
+        .info-display {
+            max-width: 330px;
+        }
     }
-
-    .expert-title {
-        margin: 0 auto;
-        max-width: 250px;
-    }
-
-    .info-display {
-        margin: 0 auto 20px;
-        max-width: 505px;
-        text-align: left;
-    }
-}
-
-@media (max-width: 535px) {
-    .info-display {
-        max-width: 330px;
-    }
-}
 </style>
 
 #set ($ddl_records_local_service = $serviceLocator.findService("com.liferay.portlet.dynamicdatalists.service.DDLRecordLocalService"))
@@ -183,7 +184,6 @@
     #end
 #end
 
-
 <div class="expert-exchange-image-container">
     #foreach($item in $experts)
         #set ($record_uuid = $item.get("record_uuid"))
@@ -203,11 +203,11 @@
         <div class="expert">
             <div class="image-container">
                 <img class="lazy-load" datasrc="/documents/${group_id}/${image_uuid}" /></div>
-            <div class="info-container aui-helper-hidden">
+            <div class="aui-helper-hidden info-container">
                 <img class="expert-logo lazy-load" datasrc="/documents/${group_id}/${logo_uuid}"/>
                 <div class="expert-info">
-                    <h3 class="lighter-font blue-text">$title</h3>
-                    <p class="expert-info-title blue-text">$subtitle</p>
+                    <h3 class="blue-text lighter-font">$title</h3>
+                    <p class="blue-text expert-info-title">$subtitle</p>
                     <p>$description</p>
                 </div>
             </div>
@@ -268,7 +268,7 @@ AUI().ready(
             var className = lastNode.get('className');
             var numRows = className.substring(className.length - 1);
 
-            for(var i = 1; i <= numRows; i++) {
+            for (var i = 1; i <= numRows; i++) {
                 var nodesInRow = A.all('.row-' + i);
 
                 nodesInRow.each(
@@ -301,7 +301,7 @@ AUI().ready(
                     node.remove(true);
                 }
             );
-        }
+        };
 
         var expertExchangeContainer = A.one('.expert-exchange-image-container');
         var experts = expertExchangeContainer.all('.expert');
@@ -341,7 +341,6 @@ AUI().ready(
         expertExchangeContainer.on(
             'clickoutside',
             function() {
-                console.log('outside');
                 if (A.one('.image-container.active')) {
                     removeCollapse();
                 }

@@ -30,8 +30,8 @@
 *#
 
 ## get Locale objects for converting dates
-#set ($localeEn = $localeUtil.fromLanguageId("en_US")) 
-#set ($localePage = $localeUtil.fromLanguageId("de_DE")) 
+#set ($localeEn = $localeUtil.fromLanguageId("en_US"))
+#set ($localePage = $localeUtil.fromLanguageId("de_DE"))
 #set ($timeFormat = "h:mma")
 #set ($timeFormat = "H:mm")
 #set ($agendaDateFormat = "EEEE, dd. MMMM yyyy")
@@ -45,31 +45,53 @@
 #if ($agendabutton)
 
 <style type="text/css">
-#feedbackContainer{display:none}
-</style> 
- <style type="text/css">
- .lego-image{max-height:100%;max-width:100%}
- .max-960{margin:0 auto;max-width:960px}
- .no-max .max-960{max-width:none}
- .agenda-section .class-toggle{cursor:pointer;margin:80px auto 40px;max-width:180px}
- #agendaWrapper .aui-toggler-content-expanded{white-space:normal}
- #agendaWrapper .aui-toggler-content-expanded p{max-width:720px}
- 
- #agendaPop {
-    max-height: 320px;
-    overflow: hidden;
-    transition: max-height ease-in-out 0.75s;
-  }
+    #feedbackContainer {
+        display:none
+    }
+
+    .lego-image {
+        max-height: 100%;
+        max-width: 100%
+    }
+
+    .max-960 {
+        margin: 0 auto;
+        max-width: 960px
+    }
+
+    .no-max .max-960 {
+        max-width: none
+    }
+
+    .agenda-section .class-toggle {
+        cursor: pointer;
+        margin: 80px auto 40px;
+        max-width: 180px
+    }
+
+    #agendaWrapper .aui-toggler-content-expanded {
+        white-space: normal;
+    }
+
+    #agendaWrapper .aui-toggler-content-expanded p {
+        max-width: 720px
+    }
+
+    #agendaPop {
+        max-height: 320px;
+        overflow: hidden;
+        transition: max-height ease-in-out 0.75s;
+    }
 
     #agendaPop.class-toggle-active {
         max-height: 5000px;
     }
 
     #agendaPop .blur-container {
-        background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(1%, rgba(248, 248, 248, 0)), color-stop(70%, rgba(255, 255, 255, 0.8)), color-stop(100%, rgba(255, 255, 255, 0.8)));
-        background-image: -webkit-linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 1%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.8) 100%);
         background-image: -moz-linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 1%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.8) 100%);
         background-image: -o-linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 1%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.8) 100%);
+        background-image: -webkit-gradient(linear, to bottom, to top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(1%, rgba(248, 248, 248, 0)), color-stop(70%, rgba(255, 255, 255, 0.8)), color-stop(100%, rgba(255, 255, 255, 0.8)));
+        background-image: -webkit-linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 1%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.8) 100%);
         background-image: linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 1%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.8) 100%);
         bottom: 0;
         display: block;
@@ -82,35 +104,560 @@
         height: 0
     }
 
-@media(max-width: 720px) {
-  #agendaPop.class-toggle-active {
-    margin: auto;
-    max-width: 480px;
-    top: 0;
-  }
-}
-
-@media(max-width: 780px) {
-    #agendaPop.class-toggle-active {
-        max-height: 6250px;
+    @media(max-width: 720px) {
+        #agendaPop.class-toggle-active {
+            margin: auto;
+            max-width: 480px;
+            top: 0;
+        }
     }
-}
 
-@media(max-width: 480px) {
-  #agendaPop.class-toggle-active {
-    margin: auto;
-    max-width: 320px;
-  }
- }
- </style> 
- 
+    @media(max-width: 780px) {
+        #agendaPop.class-toggle-active {
+            max-height: 6250px;
+        }
+    }
+
+    @media(max-width: 480px) {
+        #agendaPop.class-toggle-active {
+            margin: auto;
+            max-width: 320px;
+        }
+    }
+
+    #agendaTabs .select-day {
+        height: 100%;
+    }
+
+    #agendaTabs.sticky {
+        position: fixed;
+        top: 88px;
+    }
+
+    #agendaWrapper {
+        margin: auto;
+        min-height: 670px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #agendaWrapper table {
+        box-sizing: border-box;
+    }
+
+    #agendaWrapper tr {
+        border-bottom: 1px solid #E3E4E5;
+    }
+
+    #agendaWrapper td {
+        display: inline-block;
+        max-width: 100%;
+        min-height: 75px;
+        padding: 10px;
+    }
+
+    #agendaWrapper td.empty-session {
+        display: none;
+    }
+
+    #agendaWrapper td.multi-room-td {
+        border-bottom: 1px solid #E3E4E5;
+        display: block;
+    }
+
+    #agendaWrapper td.pop-up.last {
+        border-bottom-width: 0;
+    }
+
+    #agendaWrapper td.multi-room-td:last-child {
+        border-bottom-width: 0;
+    }
+
+    #agendaWrapper.hide-all tr, #agendaWrapper.hide-all td {
+        display: none;
+    }
+
+    #agendaWrapper.hide-all .display-marketing .marketing .first-col,
+    #agendaWrapper.hide-all .display-customize .customize .first-col,
+    #agendaWrapper.hide-all .display-develop .develop .first-col,
+    #agendaWrapper.hide-all .display-production .production .first-col,
+    #agendaWrapper.hide-all .display-features .features .first-col,
+    #agendaWrapper.hide-all .display-technologies .technologies .first-col,
+    #agendaWrapper.hide-all .display-ui .ui .first-col,
+    #agendaWrapper.hide-all .display-using .using .first-col {
+        display: table-cell;
+        margin-bottom: -1px;
+    }
+
+    #agendaWrapper.hide-all .display-marketing td.marketing,
+    #agendaWrapper.hide-all .display-customize td.customize,
+    #agendaWrapper.hide-all .display-develop td.develop,
+    #agendaWrapper.hide-all .display-production td.production,
+    #agendaWrapper.hide-all .display-features td.features,
+    #agendaWrapper.hide-all .display-technologies td.technologies,
+    #agendaWrapper.hide-all .display-ui td.ui,
+    #agendaWrapper.hide-all .display-using td.using {
+        display: block;
+        margin-bottom: -1px;
+    }
+
+    #agendaWrapper.hide-all .display-marketing tr.marketing,
+    #agendaWrapper.hide-all .display-customize tr.customize,
+    #agendaWrapper.hide-all .display-develop tr.develop,
+    #agendaWrapper.hide-all .display-production tr.production,
+    #agendaWrapper.hide-all .display-features tr.features,
+    #agendaWrapper.hide-all .display-technologies tr.technologies,
+    #agendaWrapper.hide-all .display-ui tr.ui,
+    #agendaWrapper.hide-all .display-using tr.using {
+        display: table-row;
+    }
+
+    #agendaWrapper .first-col {
+        background: #FFF;
+        color: #909295;
+        display: table-cell;
+        font-size: 36px;
+        font-weight: lighter;
+        text-align: left;
+        vertical-align: top;
+        width: 20%;
+    }
+
+    #agendaWrapper .pop-up {
+        width: 100%;
+        width: calc(100% - 20px)
+    }
+
+    #agendaWrapper .pop-up:hover {
+        cursor: pointer;
+    }
+
+    #agendaWrapper .pop-up-content {
+        display: none;
+    }
+
+    #agendaWrapper .single-row-td {
+        background: #EBEBEB;
+    }
+
+    #agendaWrapper .break-row-td {
+        background: #F3F3F3;
+    }
+
+    #agendaWrapper .speaker-entry {
+        color: #818183;
+    }
+
+    #agendaWrapper .company-logo {
+        float: right;
+        margin-right: 20px;
+    }
+
+    #agendaWrapper .company-logo img {
+        width: 180px;
+    }
+
+    #agendaWrapper .togglers {
+        background: #FFF;
+        border-left: 0 solid;
+        border-right: 0 solid;
+        border: 1px solid #CCC;
+        text-align: center;
+        width: 100%;
+        z-index: 10;
+    }
+
+    #agendaWrapper .togglers span:last-of-type {
+        border-right-width: 0;
+    }
+
+    #agendaWrapper .togglers .class-toggle-carousel {
+        border-right: 1px solid #CCC;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 18px;
+        margin-left: -3px;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: top;
+        width: $tabWidth%;
+    }
+
+    #agendaWrapper .trigger {
+        font-size: 18px;
+        letter-spacing: 2px;
+        #if ($texttransform != "none")
+            text-transform: uppercase;
+        #end
+    }
+
+    #wrapper .agenda-2,
+    #wrapper .agenda-3,
+    #wrapper.class-toggle-carousel-day-1 .agenda-2,
+    #wrapper.class-toggle-carousel-day-2 .agenda-1,
+    #wrapper.class-toggle-carousel-day-2 .agenda-3,
+    #wrapper.class-toggle-carousel-day-3 .agenda-1,
+    #wrapper.class-toggle-carousel-day-3 .agenda-2,
+    #wrapper.hide-all td {
+        display: none;
+    }
+
+    #wrapper #agendaWrapper,
+    #wrapper #agendaWrapper .select-day-1,
+    #wrapper.class-toggle-carousel-day-1 #agendaWrapper .select-day-1,
+    #wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-3 {
+      font-weight: normal;
+    }
+
+    #wrapper #agendaWrapper .select-day-1,
+    #wrapper.class-toggle-carousel-day-1 #agendaWrapper .select-day-1.class-toggle-carousel,
+    #wrapper.class-toggle-carousel-day-2 #agendaWrapper .select-day-2.class-toggle-carousel,
+    #wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-3.class-toggle-carousel {
+        background: $selector_color;
+        color: #FFF;
+    }
+
+    #wrapper #agendaWrapper .select-day-2,
+    #wrapper #agendaWrapper .select-day-3,
+    #wrapper.class-toggle-carousel-day-1 #agendaWrapper .select-day-2,
+    #wrapper.class-toggle-carousel-day-2 #agendaWrapper .select-day-1,
+    #wrapper.class-toggle-carousel-day-2 #agendaWrapper .select-day-3,
+    #wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-1,
+    #wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-2 {
+        background: #FFF;
+        color: #4C4C4E;
+        font-weight: lighter;
+    }
+
+    #wrapper #agendaWrapper .togglers .class-toggle-carousel:hover {
+        background: #153F6D;
+        color: #FFF;
+    }
+
+    #wrapper.class-toggle-carousel-day-1 .agenda-1,
+    #wrapper.class-toggle-carousel-day-2 #agendaWrapper .agenda-2,
+    #wrapper.class-toggle-carousel-day-3 #agendaWrapper .agenda-3 {
+        display: table;
+    }
+
+    #wrapper .agenda-3, #wrapper.class-toggle-carousel-day-2 .agenda-1, #wrapper.class-toggle-carousel-day-2 .agenda-3, #wrapper.class-toggle-carousel-day-3 .agenda-1, #wrapper.class-toggle-carousel-day-3 .agenda-2, #wrapper.hide-all td {
+        display: none;
+    }
+
+    .agenda-table {
+        width: 100%;
+    }
+
+    .agenda-table.sticky-nav {
+        margin-top: 60px;
+    }
+
+    .categorySelectors {
+        text-align: center;
+    }
+
+    .categorySelectors div {
+        display: inline-block;
+        padding: 5px 20px;
+    }
+
+    .categorySelectors.desktop-only {
+        background: #FFF;
+        border-bottom: 0 solid;
+        border-right: 0 solid;
+        border: 1px solid #CCC;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 30px 15px;
+        position: absolute;
+        right: 0;
+        text-align: left;
+        top: 68px;
+        width: 200px;
+        z-index: 10;
+    }
+
+    .categorySelectors.desktop-only.sticky {
+        position: fixed;
+        top: 156px;
+    }
+
+    .categorySelectors .category {
+        background: url(/documents/35935946/36204249/Close-Icon.png) no-repeat;
+        color: #1A1A1A;
+        cursor: pointer;
+        display: block;
+        margin: 5px;
+        padding: 8px 25px 8px 8px;
+        text-decoration: none;
+    }
+
+    .categorySelectors .filter-header {
+        font-weight: normal;
+        padding: 15px;
+    }
+
+    .categorySelectors .marketing-selected,
+    .categorySelectors .customize-selected,
+    .categorySelectors .develop-selected,
+    .categorySelectors .production-selected,
+    .categorySelectors .features-selected,
+    .categorySelectors .technologies-selected,
+    .categorySelectors .ui-selected,
+    .categorySelectors .using-selected {
+        background-position: 92% 50%;
+        color: #selector_color;
+        font-weight: normal;
+    }
+
+    .category-toggle-container .aui-toggler-content-collapsed, .controls-hidden .edit-only, .controls-hidden form .separator, .controls-hidden form .aui-button, .desktop-hidden, .taglib-header {
+        display: none;
+    }
+
+    .category-toggle-container .aui-toggler-header-collapsed .arrow {
+        border: 7px solid transparent;
+        border-bottom-width: 0;
+        border-top-color: #4C4C4C;
+        content: "";
+        display: inline-block;
+        height: 0;
+        margin: 0 5px;
+        width: 0;
+    }
+
+    .category-toggle-container .aui-toggler-header-expanded .arrow {
+        border: 7px solid transparent;
+        border-bottom-color: #4C4C4C;
+        border-top-width: 0;
+        content: "";
+        display: inline-block;
+        height: 0;
+        margin: 0 5px;
+        width: 0;
+    }
+
+    .category-toggle-container .toggle-header {
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .keynote {
+        color: #005E8E;
+        font-weight: normal;
+    }
+
+    .lfr-meta-actions, .portlet-body {
+        clear: both;
+    }
+
+    .liferay-seven-icon {
+        background: url(/documents/47511614/51371158/Liferay-7-Icon.png) no-repeat center center;
+        background-size: cover;
+        float: right;
+        height: 34px;
+        width: 34px;
+    }
+
+    .on-screen-bop {
+        position: relative;
+        z-index: -1;
+    }
+
+    .on-screen-bop div {
+        background: #FFF;
+        position: fixed;
+        text-align: left;
+        top: 168px;
+        width: 130px;
+    }
+
+    .on-screen-bop.on-screen-boo-bop div {
+        position: absolute;
+        top: 0;
+    }
+
+    .pop-up-content {
+        color: #6B6C6B;
+    }
+
+    .pop-up-content .view-all-bio-link, .pop-up-content .room-session, .pop-up-content .speaker-information {
+        padding-bottom: 1em;
+    }
+
+    .ie8 .pop-up-content {
+        background: #6B6C6B;
+        color: #FFF;
+    }
+
+    @media all and (max-width: 900px) {
+        #agendaWrapper td {
+            max-width: 100%;
+        }
+
+      #agendaWrapper .first-col, .on-screen-bop div, .on-screen-bop.on-screen-boo-bop div {
+        width: 120px;
+      }
+
+      #agendaWrapper .togglers {
+        margin-right: 0;
+        position: initial;
+        width: 100%;
+      }
+
+      #agendaWrapper table {
+        max-width: 100%;
+      }
+
+      #agendaWrapper td.multi-room-td {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      .agenda-table.sticky-nav {
+        margin-top: 0;
+      }
+
+      .desktop-hidden {
+        display: block;
+      }
+
+      .desktop-only {
+        display: none;
+      }
+
+      .first-col div {
+        text-align: left;
+      }
+
+      .on-screen-bop div, .on-screen-bop.on-screen-boo-bop div  {
+        position: initial;
+      }
+    }
+
+    @media all and (min-width: 720px) {
+        .mobile-hidden {
+            display: block;
+        }
+
+        .mobile-only {
+            display: none;
+        }
+    }
+
+    @media all and (max-width: 720px) {
+        #agendaWrapper .company-logo {
+            float: none;
+        }
+
+        .mobile-only {
+            display: block;
+        }
+
+        .mobile-hidden {
+            display: none;
+        }
+
+        ##have to be very specific otherwise conflicts with filter rules
+        #wrapper #agendaWrapper td.first-col {
+            display: none;
+        }
+    }
+
+    ## hide filters for now
+    .categorySelectors {
+        display: none;
+    }
+
+    .pop-up-content {
+        display: none;
+    }
+
+    .pop-up-content .btn {
+        font-size: 1em;
+        margin-top: 20px;
+    }
+
+    #pagePopUp {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid #CCC;
+        position: absolute;
+        width: 100%;
+        z-index: 100;
+    }
+
+    #pagePopUp .pop-up-content {
+        display: block;
+        padding: 50px 35px 30px;
+    }
+
+    #pagePopUp .pop-up-content .speaker-company, #pagePopUp .pop-up-content .speaker-name, #pagePopUp .pop-up-content .speaker-title {
+        display: block;
+    }
+
+    #pagePopUp .speaker-title, #pagePopUp .speaker-company {
+        font-weight: bold;
+    }
+
+    #pagePopUp .speaker-name {
+        color: #3AA0D5;
+        font-size: 1.2em;
+        margin: 5px 0;
+    }
+
+    #pagePopUp .speaker-company {
+        font-style: italic;
+    }
+
+    #agendaclosePopUp {
+        background: url(/documents/35935946/36204257/close-pop-up.png/98401a14-9fcf-4f9a-8f1d-4fdcb7ff0207?t=1392924953000?t=1392924953000?t=1392924953590) no-repeat;
+        cursor: pointer;
+        float: right;
+        height: 60px;
+        width: 60px;
+    }
+
+    .ie8 #heading .company-title .logo {
+        background-color: #F5FAFD;
+    }
+
+    .ie8.show-nav #navigation {
+        background: #F5FAFD;
+    }
+
+    #mainCarousel .aui-carousel-item {
+        position: static;
+        z-index: 20;
+    }
+
+    #mainCarousel menu {
+        z-index: auto;
+    }
+
+    @media all and (min-width: 720px) {
+        #pagePopUp {
+            width: 440px;
+        }
+    }
+
+    .agenda-arrow svg {
+        margin-left: 7px;
+        transform: rotate(-90deg);
+    }
+
+    .agenda-arrow.active svg {
+        transform: rotate(90deg);
+    }
+</style>
+
  <div id="agenda">
  <div class="lego-article" id="article-54196071">
- 	 <div class="lego-article-content max-960"> 
- 	 	<div class="aui-helper-clearfix lego-section section-1 agenda-section" > 
- 	 		<div class="aui-w100 block-1 content-column lego-block centered" > 
+ 	 <div class="lego-article-content max-960">
+ 	 	<div class="agenda-section aui-helper-clearfix lego-section section-1"> 
+ 	 		<div class="aui-w100 block-1 centered content-column lego-block"> 
  	 			<div class="content-column-content only-column"> 
- 	 				<div class="lego-element btn class-toggle" data-target-node="#agendaPop"> zur Agenda </div>
+ 	 				<div class="class-toggle lego-element btn" data-target-node="#agendaPop"> zur Agenda </div>
  	 			 </div> 
  	 		</div> 
  	 	</div> 
@@ -560,457 +1107,7 @@
   </div>
 </div>
 </div>
-<style>
-#agendaTabs .select-day {
-  height: 100%;
-}
 
-#agendaTabs.sticky {
-  position: fixed;
-  top: 88px;
-}
-
-#agendaWrapper {
-  margin: auto;
-  min-height: 670px;
-  overflow: hidden;
-  position: relative;
-}
-
-#agendaWrapper table {
-  box-sizing: border-box;
-}
-
-#agendaWrapper tr {
-  border-bottom: 1px solid #E3E4E5;
-}
-
-#agendaWrapper td {
-    display: inline-block;
-    padding: 10px;
-    min-height: 75px;
-    max-width: 100%;
-   ## max-width: calc(100% - 220px);
-}
-
-#agendaWrapper td.empty-session {
-  display: none;
-}
-
-#agendaWrapper td.multi-room-td {
-  border-bottom: 1px solid #E3E4E5;
-  display: block;
-}
-
-#agendaWrapper td.pop-up.last {
-  border-bottom-width: 0;
-}
-
-#agendaWrapper td.multi-room-td:last-child {
-  border-bottom: 0;
-}
-
-#agendaWrapper.hide-all tr, #agendaWrapper.hide-all td {
-  display: none;
-}
-
-#agendaWrapper.hide-all .display-marketing .marketing .first-col,
-#agendaWrapper.hide-all .display-customize .customize .first-col,
-#agendaWrapper.hide-all .display-develop .develop .first-col,
-#agendaWrapper.hide-all .display-production .production .first-col,
-#agendaWrapper.hide-all .display-features .features .first-col,
-#agendaWrapper.hide-all .display-technologies .technologies .first-col,
-#agendaWrapper.hide-all .display-ui .ui .first-col,
-#agendaWrapper.hide-all .display-using .using .first-col {
-  display: table-cell;
-  margin-bottom: -1px;
-}
-
-#agendaWrapper.hide-all .display-marketing td.marketing,
-#agendaWrapper.hide-all .display-customize td.customize,
-#agendaWrapper.hide-all .display-develop td.develop,
-#agendaWrapper.hide-all .display-production td.production,
-#agendaWrapper.hide-all .display-features td.features,
-#agendaWrapper.hide-all .display-technologies td.technologies,
-#agendaWrapper.hide-all .display-ui td.ui,
-#agendaWrapper.hide-all .display-using td.using {
-  display: block;
-  margin-bottom: -1px;
-}
-
-#agendaWrapper.hide-all .display-marketing tr.marketing,
-#agendaWrapper.hide-all .display-customize tr.customize,
-#agendaWrapper.hide-all .display-develop tr.develop,
-#agendaWrapper.hide-all .display-production tr.production,
-#agendaWrapper.hide-all .display-features tr.features,
-#agendaWrapper.hide-all .display-technologies tr.technologies,
-#agendaWrapper.hide-all .display-ui tr.ui,
-#agendaWrapper.hide-all .display-using tr.using {
-  display: table-row;
-}
-
-#agendaWrapper .first-col {
-  background: #FFF;
-  color: #909295;
-  display: table-cell;
-  font-size: 36px;
-  font-weight: lighter;
-  text-align: left;
-  vertical-align: top;
-  width: 20%;
-}
-
-#agendaWrapper .pop-up {
-  width: 100%;
-  width: calc(100% - 20px)
-}
-
-#agendaWrapper .pop-up:hover {
-  cursor: pointer;
-}
-
-#agendaWrapper .pop-up-content {
-  display: none;
-}
-
-#agendaWrapper .single-row-td {
-  background: #ebebeb;
-}
-#agendaWrapper .break-row-td {
-  background: #F3F3F3;
-}
-
-#agendaWrapper .speaker-entry {
-  color: #818183;
-}
-
-#agendaWrapper .company-logo {
-   margin-right: 20px;
-   float: right;
-}
-
-#agendaWrapper .company-logo img{
-    width: 180px;
-}
-
-#agendaWrapper .togglers {
-  background: #FFF;
-  border: 1px solid #CCC;
-  border-left: 0px solid;
-  border-right: 0px solid;
-  text-align: center;
-  width: 100%;
-  z-index: 10;
-}
-
-#agendaWrapper .togglers span:last-of-type {
-  border-right: none;
-}
-
-#agendaWrapper .togglers .class-toggle-carousel {
-  border-right: 1px solid #CCC;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 18px;
-  margin-left: -3px;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  vertical-align: top;
-  width: $tabWidth%;
-}
-
-#agendaWrapper .trigger {
-  font-size: 18px;
-  letter-spacing: 2px;
-  #if ($texttransform != "none") 
-  	text-transform: uppercase;
-  #end
-}
-
-#wrapper .agenda-2,
-#wrapper .agenda-3,
-#wrapper.class-toggle-carousel-day-1 .agenda-2,
-#wrapper.class-toggle-carousel-day-2 .agenda-1,
-#wrapper.class-toggle-carousel-day-2 .agenda-3,
-#wrapper.class-toggle-carousel-day-3 .agenda-1,
-#wrapper.class-toggle-carousel-day-3 .agenda-2,
-#wrapper.hide-all td {
-    display: none;
-}
-
-#wrapper #agendaWrapper,
-#wrapper #agendaWrapper .select-day-1,
-#wrapper.class-toggle-carousel-day-1 #agendaWrapper .select-day-1,
-#wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-3 {
-  font-weight: normal;
-}
-
-#wrapper #agendaWrapper .select-day-1, 
-#wrapper.class-toggle-carousel-day-1 #agendaWrapper .select-day-1.class-toggle-carousel,
-#wrapper.class-toggle-carousel-day-2 #agendaWrapper .select-day-2.class-toggle-carousel,
-#wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-3.class-toggle-carousel {
-  background: $selector_color;
-  color: #FFF;
-}
-
-#wrapper #agendaWrapper .select-day-2,
-#wrapper #agendaWrapper .select-day-3,
-#wrapper.class-toggle-carousel-day-1 #agendaWrapper .select-day-2,
-#wrapper.class-toggle-carousel-day-2 #agendaWrapper .select-day-1,
-#wrapper.class-toggle-carousel-day-2 #agendaWrapper .select-day-3,
-#wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-1,
-#wrapper.class-toggle-carousel-day-3 #agendaWrapper .select-day-2 {
-
-  
-  
-  background: #FFF;
-  color: #4C4C4E;
-    font-weight: lighter;
-}
-
-#wrapper #agendaWrapper .togglers .class-toggle-carousel:hover {
-  background: #153f6d;
-  color: #FFF;
-}
-
-#wrapper.class-toggle-carousel-day-1 .agenda-1,
-#wrapper.class-toggle-carousel-day-2 #agendaWrapper .agenda-2,
-#wrapper.class-toggle-carousel-day-3 #agendaWrapper .agenda-3 {
-    display: table;
-}
-
-#wrapper .agenda-3, #wrapper.class-toggle-carousel-day-2 .agenda-1, #wrapper.class-toggle-carousel-day-2 .agenda-3, #wrapper.class-toggle-carousel-day-3 .agenda-1, #wrapper.class-toggle-carousel-day-3 .agenda-2, #wrapper.hide-all td {
-  display: none;
-}
-
-.agenda-table {
-  width: 100%;
-}
-.agenda-table.sticky-nav {
-  margin-top: 60px;
-}
-
-.categorySelectors {
-  text-align: center;
-}
-
-.categorySelectors div {
-  display: inline-block;
-  padding: 5px 20px;
-}
-
-.categorySelectors.desktop-only {
-  background: #FFF;
-  border-bottom: 0px solid;
-  border-right: 0px solid;
-  border: 1px solid #CCC;
-  box-sizing: border-box;
-  height: 100%;
-  padding: 30px 15px;
-  position: absolute;
-  right: 0px;
-  text-align: left;
-  top: 68px;
-  width: 200px;
-  z-index: 10;
-}
-
-.categorySelectors.desktop-only.sticky {
-  position: fixed;
-  top: 156px;
-}
-
-.categorySelectors .category {
-  background: url(/documents/35935946/36204249/Close-Icon.png) no-repeat;
-  color: #1A1A1A;
-  cursor: pointer;
-  display: block;
-  margin: 5px;
-  padding: 8px 25px 8px 8px;
-  text-decoration: none;
-}
-
-.categorySelectors .filter-header {
-  font-weight: normal;
-  padding: 15px;
-}
-
-.categorySelectors .marketing-selected,
-.categorySelectors .customize-selected,
-.categorySelectors .develop-selected,
-.categorySelectors .production-selected,
-.categorySelectors .features-selected,
-.categorySelectors .technologies-selected,
-.categorySelectors .ui-selected,
-.categorySelectors .using-selected {
-  background-position: 92% 50%;
-  color: #selector_color;
-  font-weight: normal;
-}
-
-.category-toggle-container .aui-toggler-content-collapsed, .controls-hidden .edit-only, .controls-hidden form .separator, .controls-hidden form .aui-button, .desktop-hidden, .taglib-header {
-  display: none;
-}
-
-.category-toggle-container .aui-toggler-header-collapsed .arrow {
-  border: 7px solid transparent;
-  border-bottom-width: 0;
-  border-top-color: #4C4C4C;
-  content: "";
-  display: inline-block;
-  height: 0;
-  margin: 0 5px;
-  width: 0;
-}
-
-.category-toggle-container .aui-toggler-header-expanded .arrow {
-  border: 7px solid transparent;
-  border-bottom-color: #4C4C4C;
-  border-top-width: 0;
-  content: "";
-  display: inline-block;
-  height: 0;
-  margin: 0 5px;
-  width: 0;
-}
-
-.category-toggle-container .toggle-header {
-  cursor: pointer;
-  margin: 10px;
-}
-
-.keynote {
-  color: #005E8E;
-  font-weight: normal;
-}
-
-.lfr-meta-actions, .portlet-body {
-  clear: both;
-}
-
-.liferay-seven-icon {
-    background: url('/documents/47511614/51371158/Liferay-7-Icon.png') no-repeat center center;
-    background-size: cover;
-    float: right;
-    height: 34px;
-    width: 34px;
-}
-
-.on-screen-bop {
-  position: relative;
-  z-index: -1;
-}
-
-.on-screen-bop div {
-  background: #FFF;
-  position: fixed;
-  text-align: left;
-  top: 168px;
-  width: 130px;
-}
-
-.on-screen-bop.on-screen-boo-bop div {
-  position: absolute;
-  top: 0;
-}
-
-.pop-up-content {
-  color: #6B6C6B;
-}
-
-.pop-up-content .view-all-bio-link, .pop-up-content .room-session, .pop-up-content .speaker-information {
-  padding-bottom: 1em;
-}
-
-.ie8 .pop-up-content {
-  background: #6B6C6B;
-  color: #FFF;
-}
-
-@media all and (max-width: 900px) {
-#agendaWrapper td {
-    max-width: 100%;
-}
-
-  #agendaWrapper .first-col, .on-screen-bop div, .on-screen-bop.on-screen-boo-bop div {
-    width: 120px;
-  }
-
-  #agendaWrapper .togglers {
-    margin-right: 0;
-    width: 100%;
-    position: initial;
-  }
-
-  #agendaWrapper table {
-    max-width: 100%;
-  }
-
-  #agendaWrapper td.multi-room-td {
-    box-sizing: border-box;
-    width: 100%;
-  }
-
-  .agenda-table.sticky-nav {
-    margin-top: 0;
-  }
-
-  .desktop-hidden {
-    display: block;
-  }
-
-  .desktop-only {
-    display: none;
-  }
-
-  .first-col div {
-    text-align: left;
-  }
-
-  .on-screen-bop div, .on-screen-bop.on-screen-boo-bop div  {
-    position: initial;
-  }
-  
-
-}
-
-
-@media all and (min-width: 720px) {
-   .mobile-hidden {
-   		display: block;
-   }
-    .mobile-only {
-        display: none;
-    }
-}
-@media all and (max-width: 720px) {
-  #agendaWrapper .company-logo {
-   float: none;
-}
-
- .mobile-only {
-        display: block;
-    }
-    
-  .mobile-hidden {
-   		display: none;
-   }
-    
-    
-  ##have to be very specific otherwise conflicts with filter rules
-  #wrapper #agendaWrapper td.first-col {
-     display: none;
-  }
-}
-
-## hide filters for now
-.categorySelectors {
-  display: none;
-}
-
-</style>
 
 <script>
 AUI().use(
@@ -1189,77 +1286,7 @@ AUI().use(
 
 
 
-<style type="text/css">
-.pop-up-content {
-	display: none;
-}
 
-.pop-up-content .btn {
-	font-size: 1em;
-	margin-top: 20px;
-}
-
-#pagePopUp {
-	background: rgba(255,255,255,.95);
-	border: 1px solid #CCC;
-	position: absolute;
-	width: 100%;
-	z-index: 100;
-}
-
-#pagePopUp .pop-up-content {
-	display: block;
-	padding: 50px 35px 30px;
-}
-
-#pagePopUp .pop-up-content .speaker-company, #pagePopUp .pop-up-content .speaker-name, #pagePopUp .pop-up-content .speaker-title {
-	display: block;
-}
-
-#pagePopUp .speaker-title, #pagePopUp .speaker-company {
-	font-weight: bold;
-}
-
-#pagePopUp .speaker-name {
-	color: #3AA0D5;
-	font-size: 1.2em;
-	margin: 5px 0;
-}
-
-#pagePopUp .speaker-company {
-	font-style: italic;
-}
-
-#agendaclosePopUp {
-	background: url(/documents/35935946/36204257/close-pop-up.png/98401a14-9fcf-4f9a-8f1d-4fdcb7ff0207?t=1392924953000?t=1392924953000?t=1392924953590) no-repeat;
-	cursor: pointer;
-	float: right;
-	height: 60px;
-	width: 60px;
-}
-
-.ie8 #heading .company-title .logo {
-background-color: #F5FAFD;
-}
-
-.ie8.show-nav #navigation {
-background: #F5FAFD;
-}
-
-#mainCarousel .aui-carousel-item {
-position: static;
-z-index: 20;
-}
-
-#mainCarousel menu {
-z-index: auto;
-}
-
-@media all and (min-width: 720px) {
-	#pagePopUp {
-		width: 440px;
-	}
-}</style>
 <script>
 AUI().ready(
 	'node',
@@ -1340,20 +1367,15 @@ AUI().ready(
 
 #if ($agendabutton)
 	<div class="blur-container">
-		&nbsp;</div>
+		&nbsp;
+    </div>
 </div>
 
-<style type="text/css">
-.agenda-arrow svg {
-		margin-left: 7px;
-		transform: rotate(-90deg);
-	}
 
-	.agenda-arrow.active svg {
-		transform: rotate(90deg);
-	}</style>
 <p class="centered">
-	<a class="class-toggle animate-scroll agenda-arrow" data-target-node="#agendaPop" href="#agenda"> <svg enable-background="new 0 0 15 30" height="30px" id="Layer_1" version="1.1" viewbox="0 0 15 30" width="15px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <polyline fill="none" points="14.5,29 0.5,15 14.5,1 " stroke="#909295" stroke-miterlimit="10"></polyline> </svg> </a></p>
+	<a class="class-toggle animate-scroll agenda-arrow" data-target-node="#agendaPop" href="#agenda"> <svg enable-background="new 0 0 15 30" height="30px" id="Layer_1" version="1.1" viewbox="0 0 15 30" width="15px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"> <polyline fill="none" points="14.5,29 0.5,15 14.5,1 " stroke="#909295" stroke-miterlimit="10"></polyline> </svg></a>
+</p>
+
 <script>
 AUI().ready(
 	'node',

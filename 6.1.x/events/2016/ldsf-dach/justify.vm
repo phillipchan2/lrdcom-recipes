@@ -1,6 +1,6 @@
 <style type="text/css">
 .justify-container {
-    background-color: #0067aa;
+    background-color: #0067AA;
     padding: 3em;
 }
 
@@ -17,16 +17,16 @@
 
 .justify-container .flip-item .flip-side {
 	margin: 0 auto;
-padding-top: 30px;
-max-height: 400px;
-
+	max-height: 400px;
+	padding-top: 30px;
 }
+
 .justify-text {
-color: black;
+	color: black;
 }
 
 .safari .flip-item.class-toggle-off-click-active {
-    -webkit-transform: rotateY(0deg);
+    -webkit-transform: rotateY(0);
 }
 
 .safari .flip-item:hover, .safari .speaker-item .speaker-info {
@@ -34,25 +34,25 @@ color: black;
 }
 
 .safari .class-toggle-off-click-active.flip-item .back-side {
-    -webkit-transform: rotateY(0deg);
+    -webkit-transform: rotateY(0);
 }
 
 .justify-back-content {
-	background-color: #ebebeb;
+	background-color: #EBEBEB;
 	font-size: 16px;
 	padding: 20px;
 }
 
 .justify-back-content a {
 	color: #000;
-
 }
 
 .justify-back-content a:hover {
 	color: #E6602C;
 }
+
 h3.justify-title {
-    margin: 0.5em; 
+    margin: 0.5em;
 }
 
 .justify-item {
@@ -61,9 +61,11 @@ h3.justify-title {
 	padding: 1em;
     position: relative;
 }
+
 .justify-front-content:hover {
 	outline: 1px solid white;
 }
+
 .justify-img {
 	max-width: 100%;
 }
@@ -73,9 +75,9 @@ h3.justify-title {
 }
 
 @media (max-width: 820px) {
-.justify-item {
-		min-height: 400px;
-	}
+	.justify-item {
+			min-height: 400px;
+		}
 }
 
 @media (max-width: 720px) {
@@ -100,23 +102,21 @@ h3.justify-title {
 	}
 }
 
-}
-
-
 </style>
+
 <div class="aui-helper-clearfix centered justify-container">
 	<h2 class="light lighter-font">$heading.data</h2>
 	<div class="max-full">
 		#foreach ($item in $title.siblings)
-			<div class="aui-w33 responsive-w50 content-column flip-wrapper">
-				<div class="justify-item class-toggle-off-click flip-item">
-					<div class="justify-front-content flip-side front-side">
+			<div class="aui-w33 content-column flip-wrapper responsive-w50">
+				<div class="class-toggle-off-click flip-item justify-item">
+					<div class="flip-side front-side justify-front-content">
 						<img class="justify-img lazy-load" datasrc="$item.icon.data" />
 
 						<h3 class="justify-title">$item.data</h3>
 					</div>
 
-					<div class="justify-back-content flip-side back-side">
+					<div class="back-side flip-side justify-back-content">
 						<h3 class="justify-title">$item.data</h3>
 
 						<div class="justify-text">

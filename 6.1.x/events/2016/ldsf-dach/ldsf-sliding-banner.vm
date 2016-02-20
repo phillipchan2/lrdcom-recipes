@@ -4,461 +4,475 @@
 
 ## fetch link records and sort in tree map... would be better to do in ddl query but does not seem to work with velocity
 #foreach ($link_record in $link_records)
-    #set ($link_name = $link_record.getFieldValue("link_name"))
-    #set ($link_href = $link_record.getFieldValue("link_href"))
-    #set ($link_id = $link_record.getFieldValue("link_id"))
-    #set ($link_order = $link_record.getFieldValue("link_order"))
-    ##<div> $link_name: $link_href: $link_id: $link_order</div>
-    #if (!$link_tree.get($link_order))
-      #set ($void = $link_tree.put($link_order, $portal.getClass().forName("java.util.TreeMap").newInstance()))
-    #end
-    #set ($void = $link_tree.get($link_order).put("link_name", $link_name))
-    #set ($void = $link_tree.get($link_order).put("link_href", $link_href))
-    #set ($void = $link_tree.get($link_order).put("link_id", $link_id))
-#end 
+	#set ($link_name = $link_record.getFieldValue("link_name"))
+	#set ($link_href = $link_record.getFieldValue("link_href"))
+	#set ($link_id = $link_record.getFieldValue("link_id"))
+	#set ($link_order = $link_record.getFieldValue("link_order"))
+	##<div> $link_name: $link_href: $link_id: $link_order</div>
+	#if (!$link_tree.get($link_order))
+	  #set ($void = $link_tree.put($link_order, $portal.getClass().forName("java.util.TreeMap").newInstance()))
+	#end
+	#set ($void = $link_tree.get($link_order).put("link_name", $link_name))
+	#set ($void = $link_tree.get($link_order).put("link_href", $link_href))
+	#set ($void = $link_tree.get($link_order).put("link_id", $link_id))
+#end
 
 #set ($button_color = "#0067aa")
 #set ($text_color = "#4d4d4f")
 #set ($mobile_breakpoint = "770")
 
 <style type="text/css">
-    /* override padding in mobile */
-    .responsive .content-column .content-column-content,.responsive .content-column .portlet-column-content,.responsive .portlet-column .content-column-content,.responsive .portlet-column .portlet-column-content {
-    	padding:0 !important;
-    }
-    
-    .content-column {
-        float: left
-    }
-    .fade {
-    	opacity: 0;
-    	transition: opacity 1s ease-in-out;
-    }
-
-    .fade.in {
-    	opacity: 1;
-    }
-
-    
-    
-.scroll-navigation {
-    display: block;
-    float: left;
-    left: 0;
-    margin-left: 40px;
-    position: absolute;
-}
-#navigation.scroll-navigation a {
-    color: $text_color;
-    font-weight: lighter;
-    padding: 20px 10px;
-	height: 20px;
-}
-
-.events-nav, .floating-nav.register-button, .floating-nav.register-button.btn {
-    position: fixed;
-    top: 0;
-    margin-top: 40px;
-}
-
-
-.nav-icon path, .nav-icon polygon {
-	fill: $text_color;
-}
-.events-nav a:hover path, .events-nav a:hover polygon {
-	fill: #FFF;
-}
-
-.events-nav {
-    background-color: #d5d5d0;
-    margin-left: 0px;
-    float: left;
-    left: 0;
-    overflow: hidden;
-
-    z-index: 9999;
-}
-.events-nav.register {
-    overflow: visible;
-}
-.floating-nav.register-button {
-    /*padding: 10px 20px 15px;*/
-    right: 0;
-    width: auto;
-    z-index: 9999;
-    background-clip: border-box;
-}
-.floating-nav.register-button .btn {
-	display: block;
-}
-.events-nav .image-link {
-    display: inline-block;
-}
-.events-nav .image-link {
-    margin: 5px 20px 5px 25px;
-    padding: 0;
-    width: 90px
-}
- #fixednavigation.events-nav ul {
-    margin: 0px 10px 0px 10px;
-}
-
-#fixednavigation.events-nav li {
-   margin: 0;
-   display: inline-block;
-	vertical-align: middle;
-		list-style: none;
-}
- #fixednavigation.events-nav li a{
-	 display: block;
-   margin: 0;
-   padding: 15px;
- height: 30px;
-}
-
-##hover as parallelogram 
-#fixednavigation.events-nav ul li:hover {
-    background-color: $button_color;
-    transform: skew(20deg);    
-}
-
-##skew back text so it is not distorted 
-
-.events-nav ul li a.active {
-    font-weight: normal;
-}
-#fixednavigation.events-nav a {
-    font-size: 1.2em;
-    padding: 5px 15px;
-    position: relative;
-    z-index: 3;
-}
-#fixednavigation.events-nav #navhome {
-    margin: 0px 20px 0px 25px;
-}
-#fixednavigation.events-nav ul li a:hover {
-    color: #FFF;
-    transform: skew(-20deg);
-    cursor: pointer;
-}
-#navigation ul li a:hover {
-    color: #0067aa;
- 	font-weight: normal;
-}
-
-.nav-icon {
-    height: 28px;
-/* auto does not work in ie */
-	width: 85px;
-}
-.right-fixed {
-    float: right;
-    padding: 20px 15px;
-}
-#startHomeFixedNav {
-    height: 0;
-    margin: 0;
-}
-
-/* mobile navigation css */
-@media (max-width: ${mobile_breakpoint}px) {
-    nav.desktop-only {
-        display: none;
-    }
-    #navigation {
-    	background-color: #F3F3F3;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 5;
-    	margin: 0;
-    	padding: 20px;
-    }
-    #navigation #navigationToggle {
-        background-image: url(/documents/14/48124953/hamburger.png);
-        cursor: pointer;
-        display: inline-block;
-        height: 18px;
-        width: 21px;
-    }
-    #fixedRegisterBtn {
-    	position: fixed;
-    	top: 0;
-    	right: 0;
-    	margin: 10px;
-		opacity: 1;
-    }
-    #navigation ul {
-        display: none;
-    }
-    #navigation.class-toggle-active ul {
-        display: block;
-    	text-align: left;
-    }
-    #navigation.class-toggle-active li {
-        display: block;
-    	margin: 7px 0;
-    }
-    #navigation.class-toggle-active a {
-        padding: 5px 0;
-    }
-}</style>
-
-
-<style type="text/css">
-
-.btn {
-  color: #FFF;
-  padding: 15px;
-  font-size: 16px;
-  background-color: $button_color;
-}
-.btn:hover {
-  background-color: #153f6d;
-  color: #FFF;
-}
-
-.content .span-left {
-	background: url($logo_image.data);
-	display: inline-block;
-	vertical-align: top;
-	width: 125px;
-}
-.content .event-logo-text {
- 	background: url($logo_image.logo_text_image.data);
-	width: 400px;
-}
-.content .span-left, .content .event-logo-text {
-	background-repeat: no-repeat;
-	background-size: 100%;
-	height: 125px;
-}
-
-.content .span-right {
-	color: $text_color;
-	display: inline-block;
-	margin-top: 5px;
-    max-width: 340px;
-	text-align: left;
-}
-
-.content .event-subtitle {
-	font-size: 18px;
-}
-
-.content .register-button {
-	margin-top: 40px;
-}
-
-
-#intro {
-	background: url($background_image.data) no-repeat center bottom;
-	##background-size: cover;
-	## cover leads to funny bild things on mobile (heads cut off..)
-
-	background-size: cover;
-	background-position: 0px 50%;
-	overflow: hidden;
-    position: relative;
-}
-
-#intro .content {
-    position: absolute;
-    left: 38%;
-    top: 25%;
-	transition: left 1s ease-in-out, opacity 1s ease-in-out;
-	z-index: 3;
-}
-
-#intro .content.slided {
-	left: 15%;
-}
-#intro .content img {
-	height: 190px;
-}
-
-#introCover {
-    transition: width 1s ease-in-out;
-	height: 0;
-	## 800px here to avoid multiple edits in individual border widths 
-	## this is one huge border that when blown up shows a 45 degree angle
-	border: 800px solid $banner_color.data;
-	border-right-color:  transparent;	
-	border-left-width: 0;
-	border-bottom-width: 0;	
-
-}
-#introCover.start {
-	width: 100%;
-}
-#introCover.slided {   
-    width: 25%;
-}
-
-## fit event logo images from 320px - 600px screens by reducing everything in half...
-@media screen and (max-width: ${mobile_breakpoint}px) {
-	
-
-#intro {
-	background: url($background_image.background_image_mobile.data) no-repeat center bottom;
-	background-size: 100%;
-	background-position: 0px;
-	overflow: hidden;
-	position: relative;
-}
-	
-#intro .content, #intro .content.slided {
-	left: 5%;
-	top: 5%;
-}
-#introCover.start, #introCover.slided {   
-    width: 25%;
-}
-.content .span-left {
-	width: 60px;
-}
-
-.content .span-right {
-	max-width: 150px;
-}
-.content .event-logo-text {
-	width: 200px;
-}
-.content .span-left, .content .event-logo-text {
-	height: 60px;
-}
-
-#introCover {
-    height: 400px;
-	height: 80vh; 
-
-border: none;  
+	/* override padding in mobile */
+	.responsive .content-column .content-column-content,
+	.responsive .content-column .portlet-column-content,
+	.responsive .portlet-column .content-column-content,
+	.responsive .portlet-column .portlet-column-content {
+		padding: 0 !important;
 	}
-	
+
+	.content-column {
+		float: left
+	}
+
+	.fade {
+		opacity: 0;
+		transition: opacity 1s ease-in-out;
+	}
+
+	.fade.in {
+		opacity: 1;
+	}
+
+	.scroll-navigation {
+		display: block;
+		float: left;
+		left: 0;
+		margin-left: 40px;
+		position: absolute;
+	}
+
+	#navigation.scroll-navigation a {
+		color: $text_color;
+		font-weight: lighter;
+		height: 20px;
+		padding: 20px 10px;
+	}
+
+	.events-nav, .floating-nav.register-button, .floating-nav.register-button.btn {
+		margin-top: 40px;
+		position: fixed;
+		top: 0;
+	}
+
+	.nav-icon path, .nav-icon polygon {
+		fill: $text_color;
+	}
+
+	.events-nav a:hover path, .events-nav a:hover polygon {
+		fill: #FFF;
+	}
+
+	.events-nav {
+		background-color: #D5D5D0;
+		float: left;
+		left: 0;
+		margin-left: 0;
+		overflow: hidden;
+		z-index: 9999;
+	}
+
+	.events-nav.register {
+		overflow: visible;
+	}
+
+	.floating-nav.register-button {
+		background-clip: border-box;
+		right: 0;
+		width: auto;
+		z-index: 9999;
+	}
+
+	.floating-nav.register-button .btn {
+		display: block;
+	}
+
+	.events-nav .image-link {
+		display: inline-block;
+	}
+
+	.events-nav .image-link {
+		margin: 5px 20px 5px 25px;
+		padding: 0;
+		width: 90px
+	}
+
+	#fixednavigation.events-nav ul {
+		margin: 0 10px 0 10px;
+	}
+
+	#fixednavigation.events-nav li {
+		display: inline-block;
+		list-style: none;
+		margin: 0;
+		vertical-align: middle;
+	}
+
+	#fixednavigation.events-nav li a {
+		display: block;
+		height: 30px;
+		margin: 0;
+		padding: 15px;
+	}
+
+	##hover as parallelogram
+
+	#fixednavigation.events-nav ul li:hover {
+		background-color: $button_color;
+		transform: skew(20deg);
+	}
+
+	##skew back text so it is not distorted
+
+	.events-nav ul li a.active {
+		font-weight: normal;
+	}
+
+	#fixednavigation.events-nav a {
+		font-size: 1.2em;
+		padding: 5px 15px;
+		position: relative;
+		z-index: 3;
+	}
+
+	#fixednavigation.events-nav #navhome {
+		margin: 0 20px 0 25px;
+	}
+
+	#fixednavigation.events-nav ul li a:hover {
+		color: #FFF;
+		cursor: pointer;
+		transform: skew(-20deg);
+	}
+
+	#navigation ul li a:hover {
+		color: #0067AA;
+		font-weight: normal;
+	}
+
+	.nav-icon {
+		height: 28px;
+		width: 85px;
+	}
+
+	.right-fixed {
+		float: right;
+		padding: 20px 15px;
+	}
+
+	#startHomeFixedNav {
+		height: 0;
+		margin: 0;
+	}
+
+	/* mobile navigation css */
+
+	@media (max-width: ${mobile_breakpoint}px) {
+		nav.desktop-only {
+			display: none;
+		}
+
+		#navigation {
+			background-color: #F3F3F3;
+			margin: 0;
+			padding: 20px;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 5;
+		}
+
+		#navigation #navigationToggle {
+			background-image: url(/documents/14/48124953/hamburger.png);
+			cursor: pointer;
+			display: inline-block;
+			height: 18px;
+			width: 21px;
+		}
+
+		#fixedRegisterBtn {
+			margin: 10px;
+			opacity: 1;
+			position: fixed;
+			right: 0;
+			top: 0;
+		}
+
+		#navigation ul {
+			display: none;
+		}
+
+		#navigation.class-toggle-active ul {
+			display: block;
+			text-align: left;
+		}
+
+		#navigation.class-toggle-active li {
+			display: block;
+			margin: 7px 0;
+		}
+
+		#navigation.class-toggle-active a {
+			padding: 5px 0;
+		}
+	}
+
+	.btn {
+		background-color: $button_color;
+		color: #FFF;
+		font-size: 16px;
+		padding: 15px;
+	}
+
+	.btn:hover {
+		background-color: #153F6D;
+		color: #FFF;
+	}
+
+	.content .span-left {
+		background: url($logo_image.data);
+		display: inline-block;
+		vertical-align: top;
+		width: 125px;
+	}
+
+	.content .event-logo-text {
+		background: url($logo_image.logo_text_image.data);
+		width: 400px;
+	}
+
+	.content .span-left, .content .event-logo-text {
+		background-repeat: no-repeat;
+		background-size: 100%;
+		height: 125px;
+	}
+
+	.content .span-right {
+		color: $text_color;
+		display: inline-block;
+		margin-top: 5px;
+		max-width: 340px;
+		text-align: left;
+	}
+
 	.content .event-subtitle {
-	font-size: 15px;
-}
+		font-size: 18px;
+	}
 
-a.btn {
-  padding: 10px;
-  font-size: 12px;
+	.content .register-button {
+		margin-top: 40px;
+	}
 
-}
-	
-}
+	#intro {
+		background-position: 0 50%;
+		background-size: cover;
+		background: url($background_image.data) no-repeat center bottom;
+		overflow: hidden;
+		position: relative;
+	}
+
+	#intro .content {
+		left: 38%;
+		position: absolute;
+		top: 25%;
+		transition: left 1s ease-in-out, opacity 1s ease-in-out;
+		z-index: 3;
+	}
+
+	#intro .content.slided {
+		left: 15%;
+	}
+
+	#intro .content img {
+		height: 190px;
+	}
+
+	#introCover {
+		border-bottom-width: 0;
+		border-left-width: 0;
+		border-right-color:  transparent;
+		border: 800px solid $banner_color.data;
+		height: 0;
+		transition: width 1s ease-in-out;
+	}
+
+	#introCover.start {
+		width: 100%;
+	}
+
+	#introCover.slided {
+		width: 25%;
+	}
+
+	## fit event logo images from 320px - 600px screens by reducing everything in half...
+
+	@media screen and (max-width: ${mobile_breakpoint}px) {
+		#intro {
+			background-position: 0;
+			background-size: 100%;
+			background: url($background_image.background_image_mobile.data) no-repeat center bottom;
+			overflow: hidden;
+			position: relative;
+		}
+
+		#intro .content, #intro .content.slided {
+			left: 5%;
+			top: 5%;
+		}
+
+		#introCover.start, #introCover.slided {
+			width: 25%;
+		}
+
+		.content .span-left {
+			width: 60px;
+		}
+
+		.content .span-right {
+			max-width: 150px;
+		}
+
+		.content .event-logo-text {
+			width: 200px;
+		}
+
+		.content .span-left, .content .event-logo-text {
+			height: 60px;
+		}
+
+		#introCover {
+			border-width: 0;
+			height: 400px;
+			height: 80vh;
+		}
+			
+		.content .event-subtitle {
+			font-size: 15px;
+		}
+
+		a.btn {
+			font-size: 12px;
+			padding: 10px;
+		}
+	}
 </style>
 
-
 <nav class="scroll-navigation " id="navigation">
-<div class="class-toggle" data-target-node="#navigation" id="navigationToggle"></div>
-<ul>
-#foreach ($link_order in $link_tree.keySet())
-#set ($link_name = $link_tree.get($link_order).get("link_name"))
-#set ($link_href = $link_tree.get($link_order).get("link_href"))
-#set ($link_id = $link_tree.get($link_order).get("link_id"))
-##<div> $link_name: $link_href: $link_id: $link_order</div>
+	<div class="class-toggle" data-target-node="#navigation" id="navigationToggle"></div>
+	<ul>
+		#foreach ($link_order in $link_tree.keySet())
+			#set ($link_name = $link_tree.get($link_order).get("link_name"))
+			#set ($link_href = $link_tree.get($link_order).get("link_href"))
+			#set ($link_id = $link_tree.get($link_order).get("link_id"))
 
-	<li class="nav-item">
-		<a class="animate-scroll" id="$link_id" href="$link_href" 
-			onClick="ga('send', 'event', 'Navigation Clicks', 'Universal Theme - Scroll Navigation', '$link_name');">
-		$link_name
-		</a>
-	</li>
+			##<div> $link_name: $link_href: $link_id: $link_order</div>
 
-#end
-</ul>
-</nav>
-
-
-<nav class="scroll-navigation events-nav fade desktop-only" id="fixednavigation">
-<ul>
-#foreach ($link_order in $link_tree.keySet())
-#set ($link_name = $link_tree.get($link_order).get("link_name"))
-#set ($link_href = $link_tree.get($link_order).get("link_href"))
-#set ($link_id = $link_tree.get($link_order).get("link_id"))
-##<div> $link_name: $link_href: $link_id: $link_order</div>
-
-	<li class="nav-item">
-		<a class="animate-scroll" id="$link_id" href="$link_href" 
-			onClick="ga('send', 'event', 'Navigation Clicks', 'Universal Theme - Scroll Navigation', '$link_name');">
-		#if ($link_href == "#wrapper")
-			##<img class="nav-icon" src="/documents/67510365/68382929/16+LDSF+Logo+Abbrev.svg"/>
-		<svg class="nav-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-			width="612.5px" height="203.203px" viewBox="0 32.5 612.5 203.203" enable-background="new 0 32.5 612.5 203.203"
-			 xml:space="preserve">
-		<g>
-			<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M72.505,39.261c-37.219,0-67.496,30.279-67.496,67.502c0,18.578,7.377,35.876,20.789,48.729
-				c0.038,0.054,0.085,0.104,0.139,0.153c0.142,0.162,10.513,11.375,16.459,26.826c0.042,0.104,0.09,0.203,0.124,0.305
-				c2.344,6.15,3.967,12.967,3.967,20.01c0,0.147,0.017,0.291,0.05,0.442c0.219,4.058,3.809,7.604,9.399,9.962
-				c0.854,8.42,7.986,15.014,16.628,15.014c8.662,0,15.796-6.621,16.627-15.07c5.503-2.344,9.034-5.857,9.282-9.881
-				c0.034-0.146,0.055-0.307,0.055-0.467c0-22.242,16.246-42.202,19.843-46.346c0.234-0.204,0.461-0.402,0.69-0.615
-				c0.189-0.183,0.335-0.392,0.432-0.616c13.228-12.823,20.512-29.993,20.512-48.445c0-18.039-7.016-34.984-19.768-47.737
-				C107.481,46.277,90.533,39.258,72.505,39.261z M72.563,224.176c-5.893,0-10.847-4.048-12.266-9.51
-				c3.624,0.97,7.765,1.515,12.207,1.515c4.494,0,8.684-0.558,12.332-1.544C83.434,220.111,78.474,224.176,72.563,224.176z
-				 M116.198,152.811c-0.109,0.105-0.206,0.212-0.289,0.33c-0.113,0.127-0.273,0.307-0.458,0.52
-				c-11.744,10.752-26.918,16.68-42.887,16.68c-1.113,0-2.018,0.906-2.018,2.014c0,1.114,0.905,2.012,2.018,2.012
-				c12.291,0,24.145-3.305,34.483-9.461c-5.87,9.16-12.441,22.686-12.546,37.512c-0.028,0.131-0.038,0.27-0.038,0.409
-				c0,2.063-2,4.235-5.421,5.97c-0.602,0.295-1.229,0.586-1.91,0.855c-0.612,0.246-1.26,0.482-1.94,0.697
-				c-3.489,1.111-7.806,1.807-12.686,1.807c-4.821,0-9.1-0.683-12.572-1.772c-0.685-0.214-1.327-0.448-1.95-0.688
-				c-0.677-0.27-1.307-0.557-1.904-0.861c-3.49-1.732-5.527-3.943-5.527-6.047c0-0.133-0.009-0.266-0.038-0.394
-				c-0.043-4.82-0.763-9.511-1.926-13.957c5.793,3.418,14.422,5.483,23.917,5.483c1.11,0,2.018-0.896,2.018-2.012
-				c0-1.111-0.908-2.012-2.018-2.012c-11.891,0-22.824-3.675-26.262-8.773c-5.73-15.017-15.372-26.029-17.125-27.953
-				c-0.088-0.131-0.185-0.252-0.294-0.357c-12.761-12.113-19.79-28.463-19.79-46.048c0-35.002,28.478-63.477,63.47-63.477
-				c16.956,0,32.895,6.601,44.882,18.59c11.984,11.986,18.596,27.926,18.596,44.887C135.983,124.348,128.955,140.697,116.198,152.811z
-				"/>
-			<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M73.931,79.749c-0.753-0.754-2.09-0.754-2.845,0l-32.82,32.824c-0.576,0.569-0.749,1.44-0.437,2.191
-				c0.314,0.755,1.046,1.242,1.866,1.242l30.852-0.011v32.777c0,1.116,0.905,2.014,2.018,2.014c1.106,0,2.01-0.897,2.01-2.014v-34.797
-				c0-0.53-0.211-1.04-0.589-1.418c-0.378-0.382-0.888-0.591-1.421-0.591h-0.009l-28.001,0.015l27.951-27.96l31.344,31.341
-				c0.781,0.784,2.059,0.784,2.842,0c0.782-0.79,0.782-2.064,0-2.851L73.931,79.749z"/>
-			<polygon shape-rendering="optimizeQuality" fill="#FFFFFF" points="220.642,77.399 215.327,77.399 215.327,194.999 277.98,194.998 277.98,191.053 220.642,191.053 	
-				"/>
-			<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M389.213,93.125c-4.881-5.043-10.822-8.965-17.655-11.655c-6.867-2.702-14.556-4.072-22.851-4.072
-				l-42.495,0v117.6h42.495c8.299,0,15.986-1.371,22.851-4.072c6.834-2.689,12.774-6.611,17.655-11.656
-				c4.885-5.05,8.73-11.268,11.428-18.481c2.709-7.245,4.083-15.532,4.083-24.634c0-9.043-1.374-17.302-4.083-24.548
-				C397.944,104.395,394.098,98.176,389.213,93.125z M395.543,159.417c-2.41,6.819-5.876,12.669-10.301,17.388
-				c-4.434,4.73-9.826,8.388-16.031,10.87c-6.17,2.468-13.068,3.72-20.504,3.72h-37.18V81.002l37.18,0
-				c7.436,0,14.334,1.251,20.504,3.719c6.201,2.48,11.596,6.137,16.031,10.869c4.425,4.719,7.891,10.569,10.301,17.387
-				c2.395,6.778,3.609,14.576,3.609,23.177C399.153,144.814,397.938,152.641,395.543,159.417z"/>
-			<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M492.5,141.885c-2.714-2.17-5.841-4.001-9.295-5.443c-3.566-1.486-7.281-2.867-11.04-4.103
-				c-3.792-1.245-7.563-2.53-11.206-3.821c-3.74-1.324-7.136-2.986-10.094-4.938c-3.041-2.007-5.529-4.482-7.393-7.355
-				c-1.919-2.955-2.893-6.702-2.893-11.137c0-3.352,0.635-6.599,1.886-9.65c1.256-3.064,3.12-5.799,5.54-8.128
-				c2.416-2.323,5.438-4.177,8.984-5.512c3.521-1.324,7.631-1.995,12.213-1.996c4.573,0,8.502,0.582,11.678,1.73
-				c3.104,1.124,5.74,2.377,7.839,3.725c2.063,1.327,3.738,2.566,4.975,3.681c1.195,1.081,1.697,1.133,1.703,1.133
-				c0.18,0,0.393,0,0.67-0.523l1.447-2.772c-3.684-3.477-7.763-6.125-12.146-7.879c-4.764-1.904-10.23-2.87-16.252-2.87
-				c-5.342,0-10.148,0.837-14.285,2.486c-4.131,1.647-7.64,3.855-10.426,6.562c-2.78,2.7-4.92,5.854-6.361,9.377
-				c-1.446,3.537-2.18,7.259-2.18,11.062c0,4.894,0.814,8.991,2.422,12.178c1.619,3.213,3.782,5.93,6.428,8.072
-				c2.708,2.193,5.828,4.021,9.275,5.432c3.551,1.454,7.261,2.791,11.029,3.972c3.783,1.187,7.557,2.429,11.217,3.695
-				c3.738,1.296,7.134,2.928,10.094,4.851c3.053,1.984,5.548,4.497,7.417,7.468c1.91,3.04,2.879,6.909,2.879,11.501
-				c0,4.143-0.732,8.088-2.178,11.729c-1.455,3.668-3.593,6.884-6.357,9.557c-2.754,2.662-6.16,4.789-10.128,6.322
-				c-3.95,1.525-8.481,2.3-13.468,2.301c-3.607,0-6.889-0.363-9.753-1.08c-2.841-0.709-5.397-1.598-7.599-2.641
-				c-2.2-1.039-4.168-2.191-5.848-3.422c-1.627-1.189-3.049-2.316-4.227-3.347c-1.137-0.993-2.102-1.831-2.896-2.513
-				c-0.628-0.538-0.91-0.613-0.913-0.613c-0.071,0.007-0.418,0.008-0.893,0.569l-1.623,2.55c3.968,4.259,8.579,7.691,13.725,10.213
-				c5.493,2.691,12.174,4.057,19.854,4.057c5.91,0,11.22-0.923,15.783-2.742c4.548-1.813,8.438-4.318,11.564-7.443
-				c3.119-3.119,5.535-6.847,7.179-11.078c1.652-4.254,2.49-8.864,2.49-13.701c0-4.656-0.811-8.573-2.41-11.643
-				C497.311,146.652,495.146,144.004,492.5,141.885z"/>
-			<polygon shape-rendering="optimizeQuality" fill="#FFFFFF" points="605.492,81.17 605.492,77.396 536.42,77.396 536.42,194.996 541.734,194.996 541.734,139.367 
-				596.934,139.366 596.934,135.592 541.734,135.592 541.734,81.17 	"/>
-		</g>
-		</svg>
-		#else
-			$link_name
+			<li class="nav-item">
+				<a class="animate-scroll" id="$link_id" href="$link_href"
+					onClick="ga('send', 'event', 'Navigation Clicks', 'Universal Theme - Scroll Navigation', '$link_name');">
+				$link_name
+				</a>
+			</li>
 		#end
-		</a>
-	</li>
-#end
-</ul>
+	</ul>
 </nav>
-<nav id="fixedRegisterBtn" class="fade register-button floating-nav ">
+
+<nav class="events-nav fade desktop-only scroll-navigation" id="fixednavigation">
+	<ul>
+	#foreach ($link_order in $link_tree.keySet())
+	#set ($link_name = $link_tree.get($link_order).get("link_name"))
+	#set ($link_href = $link_tree.get($link_order).get("link_href"))
+	#set ($link_id = $link_tree.get($link_order).get("link_id"))
+	##<div> $link_name: $link_href: $link_id: $link_order</div>
+
+		<li class="nav-item">
+			<a class="animate-scroll" id="$link_id" href="$link_href" 
+				onClick="ga('send', 'event', 'Navigation Clicks', 'Universal Theme - Scroll Navigation', '$link_name');">
+			#if ($link_href == "#wrapper")
+				##<img class="nav-icon" src="/documents/67510365/68382929/16+LDSF+Logo+Abbrev.svg"/>
+			<svg class="nav-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+				width="612.5px" height="203.203px" viewBox="0 32.5 612.5 203.203" enable-background="new 0 32.5 612.5 203.203"
+				 xml:space="preserve">
+			<g>
+				<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M72.505,39.261c-37.219,0-67.496,30.279-67.496,67.502c0,18.578,7.377,35.876,20.789,48.729
+					c0.038,0.054,0.085,0.104,0.139,0.153c0.142,0.162,10.513,11.375,16.459,26.826c0.042,0.104,0.09,0.203,0.124,0.305
+					c2.344,6.15,3.967,12.967,3.967,20.01c0,0.147,0.017,0.291,0.05,0.442c0.219,4.058,3.809,7.604,9.399,9.962
+					c0.854,8.42,7.986,15.014,16.628,15.014c8.662,0,15.796-6.621,16.627-15.07c5.503-2.344,9.034-5.857,9.282-9.881
+					c0.034-0.146,0.055-0.307,0.055-0.467c0-22.242,16.246-42.202,19.843-46.346c0.234-0.204,0.461-0.402,0.69-0.615
+					c0.189-0.183,0.335-0.392,0.432-0.616c13.228-12.823,20.512-29.993,20.512-48.445c0-18.039-7.016-34.984-19.768-47.737
+					C107.481,46.277,90.533,39.258,72.505,39.261z M72.563,224.176c-5.893,0-10.847-4.048-12.266-9.51
+					c3.624,0.97,7.765,1.515,12.207,1.515c4.494,0,8.684-0.558,12.332-1.544C83.434,220.111,78.474,224.176,72.563,224.176z
+					 M116.198,152.811c-0.109,0.105-0.206,0.212-0.289,0.33c-0.113,0.127-0.273,0.307-0.458,0.52
+					c-11.744,10.752-26.918,16.68-42.887,16.68c-1.113,0-2.018,0.906-2.018,2.014c0,1.114,0.905,2.012,2.018,2.012
+					c12.291,0,24.145-3.305,34.483-9.461c-5.87,9.16-12.441,22.686-12.546,37.512c-0.028,0.131-0.038,0.27-0.038,0.409
+					c0,2.063-2,4.235-5.421,5.97c-0.602,0.295-1.229,0.586-1.91,0.855c-0.612,0.246-1.26,0.482-1.94,0.697
+					c-3.489,1.111-7.806,1.807-12.686,1.807c-4.821,0-9.1-0.683-12.572-1.772c-0.685-0.214-1.327-0.448-1.95-0.688
+					c-0.677-0.27-1.307-0.557-1.904-0.861c-3.49-1.732-5.527-3.943-5.527-6.047c0-0.133-0.009-0.266-0.038-0.394
+					c-0.043-4.82-0.763-9.511-1.926-13.957c5.793,3.418,14.422,5.483,23.917,5.483c1.11,0,2.018-0.896,2.018-2.012
+					c0-1.111-0.908-2.012-2.018-2.012c-11.891,0-22.824-3.675-26.262-8.773c-5.73-15.017-15.372-26.029-17.125-27.953
+					c-0.088-0.131-0.185-0.252-0.294-0.357c-12.761-12.113-19.79-28.463-19.79-46.048c0-35.002,28.478-63.477,63.47-63.477
+					c16.956,0,32.895,6.601,44.882,18.59c11.984,11.986,18.596,27.926,18.596,44.887C135.983,124.348,128.955,140.697,116.198,152.811z
+					"/>
+				<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M73.931,79.749c-0.753-0.754-2.09-0.754-2.845,0l-32.82,32.824c-0.576,0.569-0.749,1.44-0.437,2.191
+					c0.314,0.755,1.046,1.242,1.866,1.242l30.852-0.011v32.777c0,1.116,0.905,2.014,2.018,2.014c1.106,0,2.01-0.897,2.01-2.014v-34.797
+					c0-0.53-0.211-1.04-0.589-1.418c-0.378-0.382-0.888-0.591-1.421-0.591h-0.009l-28.001,0.015l27.951-27.96l31.344,31.341
+					c0.781,0.784,2.059,0.784,2.842,0c0.782-0.79,0.782-2.064,0-2.851L73.931,79.749z"/>
+				<polygon shape-rendering="optimizeQuality" fill="#FFFFFF" points="220.642,77.399 215.327,77.399 215.327,194.999 277.98,194.998 277.98,191.053 220.642,191.053 	
+					"/>
+				<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M389.213,93.125c-4.881-5.043-10.822-8.965-17.655-11.655c-6.867-2.702-14.556-4.072-22.851-4.072
+					l-42.495,0v117.6h42.495c8.299,0,15.986-1.371,22.851-4.072c6.834-2.689,12.774-6.611,17.655-11.656
+					c4.885-5.05,8.73-11.268,11.428-18.481c2.709-7.245,4.083-15.532,4.083-24.634c0-9.043-1.374-17.302-4.083-24.548
+					C397.944,104.395,394.098,98.176,389.213,93.125z M395.543,159.417c-2.41,6.819-5.876,12.669-10.301,17.388
+					c-4.434,4.73-9.826,8.388-16.031,10.87c-6.17,2.468-13.068,3.72-20.504,3.72h-37.18V81.002l37.18,0
+					c7.436,0,14.334,1.251,20.504,3.719c6.201,2.48,11.596,6.137,16.031,10.869c4.425,4.719,7.891,10.569,10.301,17.387
+					c2.395,6.778,3.609,14.576,3.609,23.177C399.153,144.814,397.938,152.641,395.543,159.417z"/>
+				<path shape-rendering="optimizeQuality" fill="#FFFFFF" d="M492.5,141.885c-2.714-2.17-5.841-4.001-9.295-5.443c-3.566-1.486-7.281-2.867-11.04-4.103
+					c-3.792-1.245-7.563-2.53-11.206-3.821c-3.74-1.324-7.136-2.986-10.094-4.938c-3.041-2.007-5.529-4.482-7.393-7.355
+					c-1.919-2.955-2.893-6.702-2.893-11.137c0-3.352,0.635-6.599,1.886-9.65c1.256-3.064,3.12-5.799,5.54-8.128
+					c2.416-2.323,5.438-4.177,8.984-5.512c3.521-1.324,7.631-1.995,12.213-1.996c4.573,0,8.502,0.582,11.678,1.73
+					c3.104,1.124,5.74,2.377,7.839,3.725c2.063,1.327,3.738,2.566,4.975,3.681c1.195,1.081,1.697,1.133,1.703,1.133
+					c0.18,0,0.393,0,0.67-0.523l1.447-2.772c-3.684-3.477-7.763-6.125-12.146-7.879c-4.764-1.904-10.23-2.87-16.252-2.87
+					c-5.342,0-10.148,0.837-14.285,2.486c-4.131,1.647-7.64,3.855-10.426,6.562c-2.78,2.7-4.92,5.854-6.361,9.377
+					c-1.446,3.537-2.18,7.259-2.18,11.062c0,4.894,0.814,8.991,2.422,12.178c1.619,3.213,3.782,5.93,6.428,8.072
+					c2.708,2.193,5.828,4.021,9.275,5.432c3.551,1.454,7.261,2.791,11.029,3.972c3.783,1.187,7.557,2.429,11.217,3.695
+					c3.738,1.296,7.134,2.928,10.094,4.851c3.053,1.984,5.548,4.497,7.417,7.468c1.91,3.04,2.879,6.909,2.879,11.501
+					c0,4.143-0.732,8.088-2.178,11.729c-1.455,3.668-3.593,6.884-6.357,9.557c-2.754,2.662-6.16,4.789-10.128,6.322
+					c-3.95,1.525-8.481,2.3-13.468,2.301c-3.607,0-6.889-0.363-9.753-1.08c-2.841-0.709-5.397-1.598-7.599-2.641
+					c-2.2-1.039-4.168-2.191-5.848-3.422c-1.627-1.189-3.049-2.316-4.227-3.347c-1.137-0.993-2.102-1.831-2.896-2.513
+					c-0.628-0.538-0.91-0.613-0.913-0.613c-0.071,0.007-0.418,0.008-0.893,0.569l-1.623,2.55c3.968,4.259,8.579,7.691,13.725,10.213
+					c5.493,2.691,12.174,4.057,19.854,4.057c5.91,0,11.22-0.923,15.783-2.742c4.548-1.813,8.438-4.318,11.564-7.443
+					c3.119-3.119,5.535-6.847,7.179-11.078c1.652-4.254,2.49-8.864,2.49-13.701c0-4.656-0.811-8.573-2.41-11.643
+					C497.311,146.652,495.146,144.004,492.5,141.885z"/>
+				<polygon shape-rendering="optimizeQuality" fill="#FFFFFF" points="605.492,81.17 605.492,77.396 536.42,77.396 536.42,194.996 541.734,194.996 541.734,139.367 
+					596.934,139.366 596.934,135.592 541.734,135.592 541.734,81.17 	"/>
+			</g>
+			</svg>
+			#else
+				$link_name
+			#end
+			</a>
+		</li>
+	#end
+	</ul>
+</nav>
+
+<nav class="fade floating-nav register-button" id="fixedRegisterBtn">
 	<a class="btn" href="$button_text.button_url.data target="_blank">$button_text.data</a>
 </nav>
 
-
-
-</style>
 <div id="intro">
 	<div class="border">
-		<div id="introCover" class="start">
-			<div id="bannerContent" class="content fade">
+		<div class="start" id="introCover">
+			<div class="content fade" id="bannerContent">
 				<div class="span-left">
 				</div>
 				<div class="span-right">
@@ -477,159 +491,164 @@ a.btn {
 </div>
 
 <script>
+	function debounce(fn, delay) {
+		var timer = null;
 
-function debounce(fn, delay) {
-	  var timer = null;
-	  return function () {
-	    var context = this, args = arguments;
-	    clearTimeout(timer);
-	    timer = setTimeout(function () {
-	      fn.apply(context, args);
-	    }, delay);
-	  };
+		return function() {
+			var context = this, args = arguments;
+
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+			  fn.apply(context, args);
+			}, delay);
+		};
 	}
 
+	AUI().use(
+		'node', 'transition',
+		function(A) {
+			var WIN = A.getWin();
+			var fixedNav = A.all('#fixednavigation');
+			var fixedVisible = false; 
+			var displayFixedNav = function() {
+				if (window.innerWidth < ${mobile_breakpoint} ) {
+					return;
+				}
+				var registerButton = A.all('#fixedRegisterBtn');
+				var currentScrollPos = WIN.get('docScrollY');
 
-    AUI().use(
-        'node', 'transition',
-        function(A) {
-            var WIN = A.getWin();
-            var fixedNav = A.all('#fixednavigation');
-            var fixedVisible = false; 
+				// console.log("scrollpos event" + currentScrollPos + "visible: " + fixedVisible);
 
-            var displayFixedNav = function() {
-            	if (window.innerWidth < ${mobile_breakpoint} ) {
-            		return;
-            	}
-            	var registerButton = A.all('#fixedRegisterBtn');    
-                var currentScrollPos = WIN.get('docScrollY');
-             	console.log("scrollpos event" + currentScrollPos + "visible: " + fixedVisible);
-                var fadeInPosition = A.one('#aboutStartNav').getY();
-                var topNavPosition = A.one('#navigation').getY();
-               
-                if (currentScrollPos + 5 >= fadeInPosition) {
-                	fixedNav.show(true);
-                	registerButton.show(true);
-                } else  {
-                	// if we are at the top already then skip the fading
-                	var atTop = currentScrollPos <= topNavPosition;
-            		fixedNav.hide(!atTop);
-            		registerButton.hide(!atTop);
-                }
-               // navActiveItem(currentScrollPos);
-            };
+				var fadeInPosition = A.one('#aboutStartNav').getY();
+				var topNavPosition = A.one('#navigation').getY();
 
-            var navActiveItem = function (scrollPos) {
-                var speakersSection = A.one('#referenten');
-                var agendaSection = A.one('#agenda');
-                var expertsSection = A.one('#experten');
-                var logisticsSection = A.one('#logistik');
-                var sponsorsSection = A.one('#sponsors');
+				if (currentScrollPos + 5 >= fadeInPosition) {
+					fixedNav.show(true);
+					registerButton.show(true);
+				} else  {
+					// if we are at the top already then skip the fading
+					var atTop = currentScrollPos <= topNavPosition;
 
-                var aboutNavItem = A.one('#navAbout');
-                var speakersNavItem = A.one('#navSpeakers');
-                var agendaNavItem = A.one('#navAgenda');
-                var expertsNavItem = A.one('#navExperts');
-                var logisticsNavItem = A.one('#navLogistics');
-                var sponsorsNavItem = A.one('#navSponsors');
+					fixedNav.hide(!atTop);
+					registerButton.hide(!atTop);
+				}
+				// navActiveItem(currentScrollPos);
+			};
 
-                //with agenda section
-                if (scrollPos + 5 < speakersSection.getY() && !aboutNavItem.hasClass('active')) {
-                    if (speakersNavItem.hasClass('active')) {
-                        speakersNavItem.removeClass('active');
-                    }
+			var navActiveItem = function(scrollPos) {
+				var speakersSection = A.one('#referenten');
+				var agendaSection = A.one('#agenda');
+				var expertsSection = A.one('#experten');
+				var logisticsSection = A.one('#logistik');
+				var sponsorsSection = A.one('#sponsors');
 
-                    aboutNavItem.addClass('active');
-                }
-                else if (scrollPos + 5 >= speakersSection.getY() && scrollPos + 5 < agendaSection.getY() && !speakersNavItem.hasClass('active')) {
+				var aboutNavItem = A.one('#navAbout');
+				var speakersNavItem = A.one('#navSpeakers');
+				var agendaNavItem = A.one('#navAgenda');
+				var expertsNavItem = A.one('#navExperts');
+				var logisticsNavItem = A.one('#navLogistics');
+				var sponsorsNavItem = A.one('#navSponsors');
 
-                    if (aboutNavItem.hasClass('active')) {
-                        aboutNavItem.removeClass('active');
-                    }
+				//with agenda section
+				if (scrollPos + 5 < speakersSection.getY() && !aboutNavItem.hasClass('active')) {
+					if (speakersNavItem.hasClass('active')) {
+						speakersNavItem.removeClass('active');
+					}
 
-                    if (agendaNavItem.hasClass('active')) {
-                        agendaNavItem.removeClass('active');
-                    }
+					aboutNavItem.addClass('active');
+				}
+				else if (scrollPos + 5 >= speakersSection.getY() && scrollPos + 5 < agendaSection.getY() && !speakersNavItem.hasClass('active')) {
 
-                    speakersNavItem.addClass('active')
-                }
-                else if (scrollPos + 5 >= agendaSection.getY() && scrollPos + 5 < expertsSection.getY() && !agendaNavItem.hasClass('active')) {
-                    if (speakersNavItem.hasClass('active')) {
-                        speakersNavItem.removeClass('active');
-                    }
+					if (aboutNavItem.hasClass('active')) {
+						aboutNavItem.removeClass('active');
+					}
 
-                    if (expertsNavItem.hasClass('active')) {
-                        expertsNavItem.removeClass('active');
-                    }
+					if (agendaNavItem.hasClass('active')) {
+						agendaNavItem.removeClass('active');
+					}
 
-                    agendaNavItem.addClass('active')
-                }
-                else if (scrollPos + 5 >= expertsSection.getY() && scrollPos + 5 < logisticsSection.getY() && !expertsNavItem.hasClass('active')) {
-                    if (agendaNavItem.hasClass('active')) {
-                        agendaNavItem.removeClass('active');
-                    }
+					speakersNavItem.addClass('active')
+				}
+				else if (scrollPos + 5 >= agendaSection.getY() && scrollPos + 5 < expertsSection.getY() && !agendaNavItem.hasClass('active')) {
+					if (speakersNavItem.hasClass('active')) {
+						speakersNavItem.removeClass('active');
+					}
 
-                    if (logisticsNavItem.hasClass('active')) {
-                        logisticsNavItem.removeClass('active');
-                    }
+					if (expertsNavItem.hasClass('active')) {
+						expertsNavItem.removeClass('active');
+					}
 
-                    expertsNavItem.addClass('active')
-                }
-                else if (scrollPos + 5 >= logisticsSection.getY() && scrollPos + 5 < sponsorsSection.getY() && !logisticsNavItem.hasClass('active')) {
-                    if (expertsNavItem.hasClass('active')) {
-                        expertsNavItem.removeClass('active');
-                    }
+					agendaNavItem.addClass('active')
+				}
+				else if (scrollPos + 5 >= expertsSection.getY() && scrollPos + 5 < logisticsSection.getY() && !expertsNavItem.hasClass('active')) {
+					if (agendaNavItem.hasClass('active')) {
+						agendaNavItem.removeClass('active');
+					}
 
-                    if (sponsorsNavItem.hasClass('active')) {
-                        sponsorsNavItem.removeClass('active');
-                    }
+					if (logisticsNavItem.hasClass('active')) {
+						logisticsNavItem.removeClass('active');
+					}
 
-                    logisticsNavItem.addClass('active')
-                }
-                else if (scrollPos + 5 >= sponsorsSection.getY() && scrollPos + 5 && !sponsorsNavItem.hasClass('active')) {
-                    if (logisticsNavItem.hasClass('active')) {
-                        logisticsNavItem.removeClass('active');
-                    }
+					expertsNavItem.addClass('active')
+				}
+				else if (scrollPos + 5 >= logisticsSection.getY() && scrollPos + 5 < sponsorsSection.getY() && !logisticsNavItem.hasClass('active')) {
+					if (expertsNavItem.hasClass('active')) {
+						expertsNavItem.removeClass('active');
+					}
 
-                    sponsorsNavItem.addClass('active')
-                }
-                else if (scrollPos + 5 >= sponsorsSection.getY()) {
-                    if (logisticsNavItem.hasClass('active')) {
-                        logisticsNavItem.removeClass('active');
-                    }
-                }
-            }
+					if (sponsorsNavItem.hasClass('active')) {
+						sponsorsNavItem.removeClass('active');
+					}
 
-            A.on('scroll', debounce(displayFixedNav,250));
-        }
-    );
+					logisticsNavItem.addClass('active')
+				}
+				else if (scrollPos + 5 >= sponsorsSection.getY() && scrollPos + 5 && !sponsorsNavItem.hasClass('active')) {
+					if (logisticsNavItem.hasClass('active')) {
+						logisticsNavItem.removeClass('active');
+					}
 
-AUI().ready(
-	'aui-base',
-	function(A) {
-		
-		## fade in banner content
-		var bannerContent = document.getElementById("bannerContent");
-		if (bannerContent != null) {
-			bannerContent.className += " in";
-			
-		}
-		var addLoadCSSClasses = function() {
-			var introCover = document.getElementById("introCover");
-			if (introCover != null) {
-				introCover.className += " slided";
+					sponsorsNavItem.addClass('active')
+				}
+				else if (scrollPos + 5 >= sponsorsSection.getY()) {
+					if (logisticsNavItem.hasClass('active')) {
+						logisticsNavItem.removeClass('active');
+					}
+				}
 			}
-			bannerContent.className += " slided";
+
+			A.on('scroll', debounce(displayFixedNav,250));
 		}
-		
-		if (window.innerWidth < ${mobile_breakpoint} ) {
-			addLoadCSSClasses();
-    		return;
-    	}
-		## slide in banner cover shortly after load
-		A.on('load', function() {
-				window.setTimeout(addLoadCSSClasses, 1500 );
-		});
-	}
-);
+	);
+
+	AUI().ready(
+		'aui-base',
+		function(A) {
+
+			## fade in banner content
+			var bannerContent = document.getElementById("bannerContent");
+
+			if (bannerContent != null) {
+				bannerContent.className += " in";
+
+			}
+			var addLoadCSSClasses = function() {
+				var introCover = document.getElementById("introCover");
+
+				if (introCover != null) {
+					introCover.className += " slided";
+				}
+				bannerContent.className += " slided";
+			}
+
+			if (window.innerWidth < ${mobile_breakpoint} ) {
+				addLoadCSSClasses();
+				return;
+			}
+
+			## slide in banner cover shortly after load
+			A.on('load', function() {
+					window.setTimeout(addLoadCSSClasses, 1500 );
+			});
+		}
+	);
 </script>
